@@ -1,0 +1,51 @@
+section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 40px 0;
+    
+    .title {
+        font-size: 400%;
+        font-weight: bold;
+        color: var(--default-text-color);
+        text-align: center;
+        text-transform: uppercase;
+    }
+    
+    .subtitle {
+        font-size: 200%;
+        color: var(--default-text-color);
+        font-weight: light;
+        text-align: center;
+    }
+
+    .cont-up {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 65vh;
+
+        .cont-titles {
+            width: 60%;
+        }
+        
+        .cont-img {
+            width: 60%;
+            padding: 10px;
+        }
+    }
+
+    .cont-down {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .cont-grid {
+            width: 95%;
+        }   
+    }
+
+}
+
+

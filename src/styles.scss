@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --default-text-color: white;
+    --default-text-hover-color: gray;
+
+
+    --invert-background-color: hsl(0, 0%, 100%, 0.700);
+    --invert-text-color: black;
+    
+    --default-border-radius: 20px;
+    --default-border-color: #0575E6;
+    --default-box-shadow-color: gray;
+}
+
+body {
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, hsl(0, 0%, 0%, 0.100), hsla(0, 0%, 26%, 0.100)), url(https://piratediffusion1.s3.amazonaws.com/renders2/p3ryyY/00004-tls-pro-g2.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+
+    font-family: 'Roboto Mono', monospace;
+}
