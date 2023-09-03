@@ -1,24 +1,12 @@
 <header>
     <nav>
         <div class="left">
-            
-            <a class="brand" href="/home">Learn Fast</a>
-            
-            <a class="link" href="#">Home</a>
-
-            <a class="link" href="#" role="button">Subjects</a>
-                <ul *ngIf="false" class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+            <a class="brand" (click)="goLink('home')">Learn Fast</a>
         </div>
             
-
         <div class="right">
-            <a class="link" href="#">Log in</a>
-            <a class="link" href="#">Sign in</a>
+            <a class="link" (click)="goLink('/user/login')">Log in</a>
+            <a class="link" (click)="goLink('/user/login')">Sign in</a>
         </div>
     </nav>
 </header>

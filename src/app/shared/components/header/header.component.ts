@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
 })
 
 export class HeaderComponent {
+
+  constructor( public router: Router  ) { }
+
+  goLink(link: string) {
+    this.router.navigateByUrl(link);
+    console.log(link);
+  }
 
 }
