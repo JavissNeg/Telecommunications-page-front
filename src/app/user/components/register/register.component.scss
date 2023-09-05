@@ -1,0 +1,97 @@
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+        margin: 0;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 120%;
+        text-align: center;
+    }
+
+    .cont-principal {
+        display: flex;
+        flex-direction: column;
+        min-width: 350px;
+        width: 30%;
+        height: fit-content;
+        background-color: var(--invert-background-color);
+        padding: 20px 20px;
+        border-radius: var(--default-border-radius);
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            label {
+                font-weight: bold;
+                margin-top: 2%;
+            }
+
+            input {
+                margin-top: 1%;
+                background-color: transparent;
+                border: 0;
+                border-bottom: 1px solid gray;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            p {
+                width: 100%;
+                margin: 0;
+                font-size: 60%;
+                font-weight: 300;
+                color: red;
+            }
+
+            .cont-message-login {
+                margin-top: 6%;
+                text-align: center;
+                font-size: 80%;
+
+                span:hover {
+                    cursor: pointer;
+                    color: var(--default-text-hover-color);
+                }
+            }
+            
+            button {
+                margin-top: 3%;
+                padding: 2% 0;
+                border: 1px solid var(--default-background-color);
+                border-radius: var(--default-border-radius);
+                transition: all 1s ease-in;
+                cursor: not-allowed;
+
+                &.button_validation {
+                    background-color: hsla(120, 100%, 25%, 0.300);
+                    transition: all 1s ease-in-out;
+                    cursor: pointer;
+                }
+            }
+
+
+            .valid {
+                margin-top: 1%;
+                background-color: transparent;
+                border: 0;
+                border-bottom: 1px solid gray;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+            
+            .invalid {
+                border-bottom: 1px solid red;
+            }
+        }
+        
+    }
+}
