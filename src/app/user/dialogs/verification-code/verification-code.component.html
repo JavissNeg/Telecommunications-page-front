@@ -1,5 +1,6 @@
 <div class="cont-dialog" *ngIf="show">
-    <p>Hemos enviado un codigo al {{phone}}</p>
+    <p class="title">Verifica tu cuenta</p>
+    <p class="info">Hemos enviado un codigo al {{phone}}</p>
     <p>Ingresa tu codigo:</p>
     <div class="cont-code">
         <input [(ngModel)]="code[0]" id="0" type="text" class="box" maxlength="1" (keyup)="changeBox(0, $event)">
@@ -11,7 +12,7 @@
     </div>
 
     <div class="down">
-        <app-button-next [text]="'Verificar'" [valid]="codeValid" [green]="true" (click)="verifyCode()"></app-button-next>
+        <app-button-next [text]="'Verificar'" [valid]="filledFields" [green]="true" (click)="verifyCode()"></app-button-next>
         <app-button-next [text]="'Cancelar'" [valid]="true" [red]="true" (click)="close()"></app-button-next>
     </div>
 </div>

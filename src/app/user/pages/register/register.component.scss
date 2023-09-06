@@ -2,20 +2,12 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    .title {
-        margin: 0;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 120%;
-        text-align: center;
-    }
-
+    
     .cont-principal {
         position: relative;
         display: flex;
         flex-direction: column;
-        min-width: 350px;
+        min-width: 300px;
         width: 30%;
         height: fit-content;
         background-color: var(--invert-background-color);
@@ -26,7 +18,7 @@ section {
             display: flex;
             flex-direction: column;
             width: 100%;
-
+            
             label {
                 font-weight: bold;
                 margin-top: 2%;
@@ -78,5 +70,18 @@ section {
             }
         }
         
+        .hide {
+            transform: scale(0);
+        }
     }
 }
+
+@media (max-width: 350px) {
+    section {
+        .cont-principal {
+            min-width: 205px;
+            width: 80%;
+        }
+    }
+}
+    

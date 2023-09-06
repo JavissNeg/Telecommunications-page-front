@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-verification-code',
@@ -10,10 +10,11 @@ export class VerificationCodeComponent implements OnInit {
   
   @Input() phone!: string;
   @Input() show!: boolean;
+  @Output() showEmmiter = new EventEmitter<boolean>();
   
   code: string[] = ['', '', '', '', '', '']; 
-  codeValid: boolean = false;
-
+  filledFields: boolean = false;
+  
   ngOnInit(): void {
   }
 
@@ -29,9 +30,11 @@ export class VerificationCodeComponent implements OnInit {
     const result = this.code.every( digit => digit.length > 0 );
     
     if (result) {
-      this.codeValid = true;
+      this.filledFields = true;
+
     } else {
-      this.codeValid = false;
+      this.filledFields = false;
+
       if (this.code[id].length >= 1) {
         document.getElementById( String(id + 1) )?.focus();
       }
@@ -40,13 +43,12 @@ export class VerificationCodeComponent implements OnInit {
   }
 
   verifyCode(): void {
-    console.log(this.code);
-    
+    const union = this.code.join('');
+    console.log(union);
   }
 
   close(): void {
-    console.log('close');
-    
-    this.show = false;
+    this.code = ['', '', '', '', '', ''];
+    this.showEmmiter.emit(false);
   }
 }

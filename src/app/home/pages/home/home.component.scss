@@ -2,7 +2,7 @@ section {
     display: flex;
     flex-direction: column;
     
-    .title {
+    .title-home {
         font-size: 400%;
         font-weight: bold;
         color: var(--default-text-color);
@@ -10,7 +10,7 @@ section {
         text-transform: uppercase;
     }
     
-    .subtitle {
+    .subtitle-home {
         font-size: 200%;
         color: var(--default-text-color);
         font-weight: light;
@@ -44,6 +44,26 @@ section {
         }   
     }
 
+}
+
+@media (max-width: 768px) {
+    section {
+        .cont-up {
+            height: 30vh;
+
+            .title-home {
+                font-size: 150%;
+            }
+
+            .subtitle-home {
+                font-size: 100%;
+            }
+
+            .cont-titles {
+                width: 100%;
+            }
+        }
+    }
 }
 
 

@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit{
         '7297056530', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
       ],
       username: [
-        'Javier', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]
+        'Admin', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]
       ],
       password: [
         '12345678', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]
@@ -60,7 +60,9 @@ export class RegisterComponent implements OnInit{
   
   save(): void {
     console.log(this.registerForm.value);
+    console.log(this.registerForm.controls['phone'].value);
     
+
     this.showDialog = true;
   }
 
