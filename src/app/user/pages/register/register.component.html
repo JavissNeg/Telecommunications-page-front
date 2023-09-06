@@ -42,7 +42,11 @@
             <div class="cont-message-login">
                 ¿Ya tienes una cuenta? <span (click)="goLink('user/login')">Iniciar sesión</span>
             </div>
-            <button type="submit" [ngClass]="{'button_validation': registerForm.valid}">Registrarse</button>  <!-- [disabled]="registerForm.invalid" -->
+
+            <app-button-next  [text]="'Registrarse'" [valid]="registerForm.valid" [green]="true"></app-button-next>
         </form>
+        
+        <app-verification-code [show]="showDialog"></app-verification-code>
     </div>
+    
 </section>

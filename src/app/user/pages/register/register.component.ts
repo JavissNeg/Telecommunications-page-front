@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 
 export class RegisterComponent implements OnInit{
 
-  show: boolean = true;
+  showDialog: boolean = false;
   registerForm!: FormGroup;
-
+  
   constructor( public readonly fb: FormBuilder, public router:Router ) { }
   
   ngOnInit(): void {
@@ -59,8 +59,9 @@ export class RegisterComponent implements OnInit{
   }
   
   save(): void {
-    console.log('save');
+    console.log(this.registerForm.value);
     
+    this.showDialog = true;
   }
 
   checkError( idError: string, controlInput: string ): boolean {

@@ -12,6 +12,7 @@ section {
     }
 
     .cont-principal {
+        position: relative;
         display: flex;
         flex-direction: column;
         min-width: 350px;
@@ -35,7 +36,7 @@ section {
                 margin-top: 1%;
                 background-color: transparent;
                 border: 0;
-                border-bottom: 1px solid gray;
+                border-bottom: 1px solid var(--default-border-color);
 
                 &:focus {
                     outline: none;
@@ -61,22 +62,6 @@ section {
                 }
             }
             
-            button {
-                margin-top: 3%;
-                padding: 2% 0;
-                border: 1px solid var(--default-background-color);
-                border-radius: var(--default-border-radius);
-                transition: all 1s ease-in;
-                cursor: not-allowed;
-
-                &.button_validation {
-                    background-color: hsla(120, 100%, 25%, 0.300);
-                    transition: all 1s ease-in-out;
-                    cursor: pointer;
-                }
-            }
-
-
             .valid {
                 margin-top: 1%;
                 background-color: transparent;
