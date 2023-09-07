@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,17 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit, OnDestroy {
 
   showDialog: boolean = false;
   registerForm!: FormGroup;
   
   constructor( public readonly fb: FormBuilder, public router:Router ) { }
   
+  
   ngOnInit(): void {
     this.registerForm = this.initForm();
   }
 
+  ngOnDestroy(): void {
+    this.registerForm.reset();
+  }
 
 
   initForm(): FormGroup {
@@ -106,7 +110,7 @@ export class RegisterComponent implements OnInit{
     
     return false;
   }
-
+  
   goLink(link: string): void {
     this.router.navigateByUrl(link);
   }

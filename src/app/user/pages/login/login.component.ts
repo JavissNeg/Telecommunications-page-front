@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,13 +8,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../register/register.component.scss']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   
   loginForm!: FormGroup;
 
-  constructor( public fb: FormBuilder ) { }
+  constructor( public fb: FormBuilder, public router: Router ) { }
+
+
   ngOnInit(): void {
     this.loginForm = this.initForm();
+  }
+
+  ngOnDestroy(): void {
+    this.loginForm.reset();
   }
 
   initForm(): FormGroup {
@@ -31,4 +38,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
   }
 
+  goLink(link: string): void {
+    this.router.navigateByUrl(link);
+  }
 }

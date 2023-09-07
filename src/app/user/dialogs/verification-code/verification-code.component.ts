@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-verification-code',
@@ -6,8 +6,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./verification-code.component.scss']
 })
 
-export class VerificationCodeComponent implements OnInit {
-  
+export class VerificationCodeComponent implements OnInit, OnDestroy {
+
   @Input() phone!: string;
   @Input() show!: boolean;
   @Output() showEmmiter = new EventEmitter<boolean>();
@@ -16,6 +16,10 @@ export class VerificationCodeComponent implements OnInit {
   filledFields: boolean = false;
   
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.code = ['', '', '', '', '', '']; 
   }
 
   changeBox( id: number, event: KeyboardEvent ): void {
@@ -38,6 +42,7 @@ export class VerificationCodeComponent implements OnInit {
       if (this.code[id].length >= 1) {
         document.getElementById( String(id + 1) )?.focus();
       }
+      
     }
 
   }
@@ -48,7 +53,7 @@ export class VerificationCodeComponent implements OnInit {
   }
 
   close(): void {
-    this.code = ['', '', '', '', '', ''];
+    this.ngOnDestroy();
     this.showEmmiter.emit(false);
   }
 }

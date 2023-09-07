@@ -5,7 +5,7 @@
         
         <form [formGroup]="registerForm" (ngSubmit)="save()" [ngClass]="{'hide': showDialog}">
             <label for="name">Nombre:</label>
-            <input id="name" type="text" placeholder="Ej. Javier" maxlength="20"
+            <input id="name" type="text" placeholder="Ej. Javier" maxlength="20" autofocus
                 formControlName="name" (keyup)="checkError('error_name', 'name')"
                 [ngClass]="{'input-valid': registerForm.get('name')?.valid, 'input-invalid': registerForm.get('name')?.invalid}">
             <p id="error_name" *ngIf="registerForm.controls['name']?.invalid"></p>
@@ -46,9 +46,9 @@
                 [ngClass]="{'input-valid': registerForm.get('password_confirmation')?.valid, 'input-invalid': registerForm.get('password_confirmation')?.invalid}">
             <p id="error_password_confirmation" *ngIf="registerForm.controls['password_confirmation']?.invalid"></p>
             
-            <div class="cont-message-login">
+            <div class="cont-message">
                 ¿Ya tienes una cuenta? <br>
-                <span (click)="goLink('user/login')">Iniciar sesión</span>
+                <a (click)="goLink('/user/login')">Iniciar sesión</a>
             </div>
 
             <app-button-next  [text]="'Registrarse'" [valid]="registerForm.valid" [green]="true"></app-button-next>

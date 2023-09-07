@@ -24,16 +24,15 @@ export class SubjectComponent implements OnInit  {
       subject_id: 1
     }
   ];
-  
+
   data: GridData[] = [];
   title = 'Matematicas';
 
   constructor() { }
 
   ngOnInit(): void {
-
+    
     this.units.forEach((unit) => {
-      console.log(unit);
       this.data.push({
         id_router: unit.unit_id,
         name: unit.unit_name,
