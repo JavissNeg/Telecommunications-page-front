@@ -11,6 +11,9 @@
     --default-border-radius: 20px;
     --default-border-color: black;
     --default-box-shadow-color: gray;
+
+    --valid-color: hsla(120, 100%, 25%, 0.500);
+    --invalid-color: hsla(0, 100%, 50%);
 }
 
 body {
@@ -40,5 +43,9 @@ a {
     &:hover {
         color: var(--default-text-hover-color);
         cursor: pointer;
+    }
+
+    &:active {
+        color: var(--default-text-hover-color);
     }
 }

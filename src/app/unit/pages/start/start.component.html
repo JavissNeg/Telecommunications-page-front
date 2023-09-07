@@ -1,10 +1,24 @@
 <section>
-    <div class="cont-principal">
-        <div class="cont-left">
-            <h1>Start</h1>
+    <div class="cont-principal-form">
+        <p class="title">Antes de iniciar</p>
+
+        <div class="cont-rules">
+            <p>Tome en cuenta lo siguiente:</p>
+            <div class="rules">
+                <ol>
+                    <li *ngFor="let rule of rules">{{rule}}</li>
+                </ol>
+            </div>
+            
+            <p>Nota: No intentes jugar sucio, ser honesto tiene su recompensa</p>
+            <div class="cont-check">
+                <input id="check" type="checkbox" [(ngModel)]="check" [ngStyle]="{'acept': check}">
+                <label for="check">Estoy de acuerdo con lo descrito</label>
+            </div>
         </div>
-        <div class="cont-right">
-            <h1>Start</h1>
-        </div>
+
+        <app-button-next [text]="'Iniciar test'" [valid]="check" [green]="true"></app-button-next>
     </div>
+
+    
 </section>

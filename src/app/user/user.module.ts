@@ -19,7 +19,11 @@ import { ButtonNextComponent } from './components/button-next/button-next.compon
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+  ],
+  exports: [
+    ButtonNextComponent
   ]
 })
+
 export class UserModule { }

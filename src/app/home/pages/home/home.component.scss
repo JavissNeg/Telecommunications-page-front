@@ -48,16 +48,17 @@ section {
 
 @media (max-width: 768px) {
     section {
+
+        .title-home {
+            font-size: 150%;
+        }
+
+        .subtitle-home {
+            font-size: 125%;
+        }
+
         .cont-up {
             height: 30vh;
-
-            .title-home {
-                font-size: 150%;
-            }
-
-            .subtitle-home {
-                font-size: 100%;
-            }
 
             .cont-titles {
                 width: 100%;

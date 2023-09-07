@@ -3,22 +3,80 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 78vh;
     
-    .cont-principal {
+    .cont-principal-form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 300px;
         width: 60%;
-        height: 50%;
+        height: fit-content;
         background-color: var(--invert-background-color);
+        padding: 20px 20px;
+        border-radius: var(--default-border-radius);
+        text-align: justify;
 
-        .cont-left {
+        .cont-rules {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            height: 70%;
-            background-color: red;
+
+            p {
+                margin-bottom: 0;
+                font-weight: bold;
+            }
+
+            .rules {
+                width: 100%;
+                padding-right: 1.4%;
+            }
+
+            .cont-check {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                margin-top: 3%;
+
+                input {
+                    appearance: none;
+                    min-width: 18px;
+                    min-height: 18px;
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 10px;
+                    transition: all .1s ease-in-out;
+                    background-color: transparent;
+                    border: 1px solid black;
+                    border-radius: var(--default-border-radius);
+
+                    &:checked {
+                        background-image: url("../../../../assets/svg/check_white.svg");
+                        background-size: contain;
+                    }
+                }
+
+            }
         }
-    
-        .cont-right {
-            width: 100%;
-            height: 30%;
-            background-color: blue;
+
+    }
+}
+
+@media (max-width: 800px) {
+    section {
+        .cont-principal-form {
+            min-width: 205px;
+            width: 80%;
+
+            .cont-rules {
+                .rules {
+                    width: 100%;
+                    padding-right: 5%;
+                }
+            }
         }
     }
 }
