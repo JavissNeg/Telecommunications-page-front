@@ -1,4 +1,16 @@
-p {
-    color: white;
-    background-color: red;
+section {
+    padding: 0 1%;
+
+    p {
+        margin-bottom: 1%;
+        color: var(--default-text-color);
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        p {
+            margin-bottom: 6%;
+        }
+    }
 }

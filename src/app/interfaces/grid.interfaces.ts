@@ -1,5 +1,5 @@
 export interface GridData {
-    id: number;
+    id_router: number;
     name: string;
     description: string;
 }

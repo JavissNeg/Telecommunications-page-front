@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GridData } from 'src/app/shared/interfaces/grid.interfaces';
-import { Subject } from 'src/app/shared/interfaces/subject.interfaces';
+import { GridData } from 'src/app/interfaces/grid.interfaces';
+import { Subject } from 'src/app/interfaces/subject.interfaces';
 
 @Component({
   selector: 'app-home',
@@ -24,10 +24,10 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    
     this.subject.forEach(item => {
       this.data.push({
-        id: item.subject_id,
+        id_router: item.subject_id,
         name: item.subject_name,
         description: item.subject_description
       })

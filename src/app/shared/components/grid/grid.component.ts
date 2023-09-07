@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GridData } from '../../interfaces/grid.interfaces';
+import { GridData } from '../../../interfaces/grid.interfaces';
 import { Router } from '@angular/router';
 
 

@@ -2,7 +2,6 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 85vh;
 
     .cont-principal-form {
         position: relative;
@@ -79,8 +78,6 @@ section {
 
 @media (max-width: 800px) {
     section {
-        height: 74vh;
-        
         .cont-principal {
             min-width: 205px;
             width: 80%;

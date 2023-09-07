@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SubjectRoutingModule } from './subject-routing.module';
 import { SubjectComponent } from './pages/subject/subject.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { SubjectComponent } from './pages/subject/subject.component';
   ],
   imports: [
     CommonModule,
-    SubjectRoutingModule
+    SubjectRoutingModule,
+    SharedModule
   ]
 })
 export class SubjectModule { }
