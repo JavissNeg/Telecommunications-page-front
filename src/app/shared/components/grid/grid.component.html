@@ -1,5 +1,5 @@
 <div class="cont-grid">
-    <div *ngFor="let d of data" class="box" >
+    <div *ngFor="let d of data; let i = index;" class="box" (click)="goToLink(d.id)">
         <p class="name">{{d.name}}</p>
         <p class="description">{{d.description}}</p>
         <div class="cont-cover"></div>

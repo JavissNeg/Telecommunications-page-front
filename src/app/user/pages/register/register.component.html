@@ -1,5 +1,5 @@
 <section>
-    <div class="cont-principal">
+    <div class="cont-principal-form">
         
         <p class="title" [ngClass]="{'hide': showDialog}">Registro</p>
         
@@ -7,43 +7,43 @@
             <label for="name">Nombre:</label>
             <input id="name" type="text" placeholder="Ej. Javier" maxlength="20"
                 formControlName="name" (keyup)="checkError('error_name', 'name')"
-                [ngClass]="{'valid': registerForm.get('name')?.valid, 'invalid': registerForm.get('name')?.invalid}">
+                [ngClass]="{'input-valid': registerForm.get('name')?.valid, 'input-invalid': registerForm.get('name')?.invalid}">
             <p id="error_name" *ngIf="registerForm.controls['name']?.invalid"></p>
 
             <label for="lastname" >Apellido:</label>
             <input id="lastname" type="text" placeholder="Ej. Negrete" maxlength="25"
                 formControlName="lastname" (keyup)="checkError('error_lastname', 'lastname')"
-                [ngClass]="{'valid': registerForm.get('lastname')?.valid, 'invalid': registerForm.get('lastname')?.invalid}">
+                [ngClass]="{'input-valid': registerForm.get('lastname')?.valid, 'input-invalid': registerForm.get('lastname')?.invalid}">
             <p id="error_lastname" *ngIf="registerForm.controls['lastname']?.invalid"></p>
 
             <label for="mail">Correo electrónico:</label>
             <input id="mail" type="email" placeholder="Ej. alguien@gmail.com" maxlength="30" 
                 formControlName="mail" (keyup)="checkError('error_mail', 'mail')"
-                [ngClass]="{'valid': registerForm.get('mail')?.valid, 'invalid': registerForm.get('mail')?.invalid}">
+                [ngClass]="{'input-valid': registerForm.get('mail')?.valid, 'input-invalid': registerForm.get('mail')?.invalid}">
             <p id="error_mail" *ngIf="registerForm.controls['mail']?.invalid"></p>
 
             <label for="phone">Teléfono:</label>
             <input id="phone" type="text" placeholder="Ej. 5541235678" maxlength="10" 
                 formControlName="phone" (keyup)="checkError('error_phone', 'phone')"
-                [ngClass]="{'valid': registerForm.get('phone')?.valid, 'invalid': registerForm.get('phone')?.invalid}">
+                [ngClass]="{'input-valid': registerForm.get('phone')?.valid, 'input-invalid': registerForm.get('phone')?.invalid}">
             <p id="error_phone" *ngIf="registerForm.controls['phone']?.invalid"></p>
 
             <label for="username">Nombre de usuario:</label>
             <input for="username" type="text" placeholder="Ej. JavierNegrete" maxlength="15"
                 formControlName="username" (keyup)="checkError('error_username', 'username')"
-                [ngClass]="{'valid': registerForm.get('username')?.valid, 'invalid': registerForm.get('username')?.invalid}">
+                [ngClass]="{'input-valid': registerForm.get('username')?.valid, 'input-invalid': registerForm.get('username')?.invalid}">
             <p id="error_username" *ngIf="registerForm.controls['username']?.invalid"></p>
 
             <label for="password">Contraseña:</label>
             <input id="password" type="password" placeholder="Ej. 12345678" maxlength="20"
                 formControlName="password" (keyup)="checkError('error_password', 'password')"
-                [ngClass]="{'valid': registerForm.get('password')?.valid, 'invalid': registerForm.get('password')?.invalid}">
+                [ngClass]="{'input-valid': registerForm.get('password')?.valid, 'input-invalid': registerForm.get('password')?.invalid}">
             <p id="error_password" *ngIf="registerForm.controls['password']?.invalid"></p>
 
             <label for="password_confirmation">Confirmar contraseña:</label>
             <input id="password_confirmation" type="password" placeholder="Ej. 12345678" maxlength="20"
                 formControlName="password_confirmation" (keyup)="checkError('error_password_confirmation', 'password_confirmation')"
-                [ngClass]="{'valid': registerForm.get('password_confirmation')?.valid, 'invalid': registerForm.get('password_confirmation')?.invalid}">
+                [ngClass]="{'input-valid': registerForm.get('password_confirmation')?.valid, 'input-invalid': registerForm.get('password_confirmation')?.invalid}">
             <p id="error_password_confirmation" *ngIf="registerForm.controls['password_confirmation']?.invalid"></p>
             
             <div class="cont-message-login">
