@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: SubjectComponent
+  },
+  {
+    path: 'unit',
+    loadChildren: () => import('../unit/unit.module').then(m => m.UnitModule)
   }
 ];
 
