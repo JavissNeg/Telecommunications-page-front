@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,12 +8,13 @@ import { Router } from '@angular/router';
 })
 
 export class HeaderComponent {
-
+  
   constructor( public router: Router  ) { }
 
   goLink(link: string) {
     this.router.navigateByUrl(link);
     console.log(link);
   }
+
 
 }

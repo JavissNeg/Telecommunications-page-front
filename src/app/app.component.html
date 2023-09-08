@@ -1,8 +1,7 @@
-<app-header></app-header>
+<app-header [ngClass]="{'hide-animation': !header}"></app-header>
 
 <div>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
 </div>
-
 
 <app-footer></app-footer>

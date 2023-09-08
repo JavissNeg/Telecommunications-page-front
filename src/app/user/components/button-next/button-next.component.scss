@@ -10,7 +10,6 @@ button {
     &.button_green {
         color: var(--default-text-color);
         background-color: var(--valid-color);
-        transition: all 1s ease-in-out;
         cursor: pointer;
     }
     

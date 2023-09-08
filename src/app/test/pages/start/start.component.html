@@ -1,7 +1,7 @@
 <section>
-    <div class="cont-principal-form">
+    <div id="start" class="cont-principal-form" [ngClass]="{'hide-animation': !showStart}">
         <p class="title">Antes de iniciar</p>
-
+        
         <div class="cont-rules">
             <p>Tome en cuenta lo siguiente:</p>
             <ol>
@@ -10,13 +10,16 @@
             
             <p>Nota: No intentes jugar sucio, ser honesto tiene su recompensa</p>
             <div class="cont-check">
-                <input id="check" type="checkbox" [(ngModel)]="check" [ngStyle]="{'acept': check}">
+                <input id="check" type="checkbox" [(ngModel)]="check">
                 <label for="check">Estoy de acuerdo con lo descrito</label>
             </div>
         </div>
 
-        <app-button-next [text]="'Iniciar test'" [valid]="check" [green]="true"></app-button-next>
+        <div class="btn-start">
+            <app-button-next [text]="'Iniciar'" [valid]="check" [green]="true" (click)="start()">
+            </app-button-next>
+        </div>
+    
     </div>
-
     
 </section>

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     
     this.subject.forEach(item => {
       this.data.push({
-        id_router: item.subject_id,
+        id_router_unit: item.subject_id,
         name: item.subject_name,
         description: item.subject_description
       })

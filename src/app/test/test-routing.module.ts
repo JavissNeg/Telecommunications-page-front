@@ -4,8 +4,8 @@ import { StartComponent } from './pages/start/start.component';
 
 const routes: Routes = [
   {
-    path: ':id',
-    component: StartComponent,
+    path: '',
+    component: StartComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UnitRoutingModule { }
+export class TestRoutingModule { }

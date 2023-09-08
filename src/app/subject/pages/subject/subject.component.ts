@@ -34,9 +34,10 @@ export class SubjectComponent implements OnInit  {
     
     this.units.forEach((unit) => {
       this.data.push({
-        id_router: unit.unit_id,
+        id_router_unit: unit.unit_id,
         name: unit.unit_name,
-        description: unit.unit_description
+        description: unit.unit_description,
+        id_router_subject: unit.subject_id
       });
     });
 

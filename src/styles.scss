@@ -49,3 +49,13 @@ a {
         color: var(--default-text-hover-color);
     }
 }
+
+.show-animation {
+    transition: all .5s ease-in-out;
+    opacity: 1;
+}
+
+.hide-animation {
+    transition: all .5s ease-in-out;
+    opacity: 0;
+}
