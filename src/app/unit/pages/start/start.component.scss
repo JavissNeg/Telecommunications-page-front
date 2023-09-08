@@ -29,9 +29,10 @@ section {
                 font-weight: bold;
             }
 
-            .rules {
-                width: 100%;
-                padding-right: 1.4%;
+            ol {
+                li {
+                    padding-right: 1.6%;
+                }
             }
 
             .cont-check {
@@ -54,7 +55,7 @@ section {
                     border-radius: var(--default-border-radius);
 
                     &:checked {
-                        background-image: url("../../../../assets/svg/check_white.svg");
+                        background: url("../../../../assets/svg/check_white.svg");;
                         background-size: contain;
                     }
                 }
@@ -71,10 +72,11 @@ section {
             min-width: 205px;
             width: 80%;
 
-            .cont-rules {
-                .rules {
-                    width: 100%;
-                    padding-right: 5%;
+            .cont-rules{
+                ol {
+                    li {
+                        padding-right: 4.5%;
+                    }
                 }
             }
         }
