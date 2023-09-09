@@ -95,22 +95,24 @@ section {
                         font-weight: bold;
                         text-transform: uppercase;
                     }
+                }
 
-                    .cont-time {
-                        position: absolute;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        top: 0;
-                        padding: 0 3%;
-                        width: max-content;
-                        height: 100%;
-                        border: 2px solid var(--default-background-color);
-                        border-radius: var(--default-border-radius);
+                .cont-time {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0 3%;
+                    width: 10%;
+                    height: 15%;
+                    margin-bottom: 5%;
+                    border: 2px solid var(--default-background-color);
+                    border-radius: var(--default-border-radius);
 
-                        .time {
-                            font-size: 120%;
-                        }
+                    .time {
+                        font-size: 120%;
                     }
                 }
     
@@ -161,12 +163,11 @@ section {
                     }
                 }
 
-                
             }
         }
         
         .cont-button {
-            width: 50%;
+            width: 60%;
             height: fit-content;
         }
     }
@@ -178,7 +179,7 @@ section {
         
         &:hover {
             cursor: pointer;
-            transform: scale(1.02);
+            transform: scale(1.04);
         }
     }
 }
@@ -205,14 +206,23 @@ section {
             .window-second {
                 
                 .cont-questions {
-                    .cont-answers {
+
+                    .cont-time {
+                        position: static;
                         width: 100%;
-                        height: fit-content;
-                        margin: 2% 0;
+                        height: 40px;
+
+                        .time {
+                            font-size: 100%;
+                        }
+                    }
+                    
+                    .cont-answers {
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
+                        font-size: 90%;
                         
                         .answer {
                             &:active {
@@ -222,6 +232,11 @@ section {
                     }
                     
                 }
+
+            }
+
+            .cont-button {
+                width: 100%;
             }
         }
     }

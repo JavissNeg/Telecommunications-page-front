@@ -27,13 +27,13 @@
         <div id="window-second" class="window-second" [ngClass]="{'show-animation': showSecond, 'hide-animation': !showSecond }">
             
             <div id="cont-questions" class="cont-questions" >
+                <div class="cont-time">
+                    <p class="time">{{time}}seg</p>
+                </div>
+                
                 <div class="cont-header">
                     <p class="title">Pregunta {{counter+1}}</p>
                     <p class="question">{{questions[counter].question_name}}</p>
-                    
-                    <div class="cont-time">
-                        <p class="time">{{time}}seg</p>
-                    </div>
                 </div>
                 
                 <div class="cont-answers">
