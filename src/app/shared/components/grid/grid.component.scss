@@ -18,7 +18,8 @@
         border-radius: var(--default-border-radius);
         color: var(--invert-text-color);
         background-color: var(--invert-background-color);
-        
+        box-shadow: 0 0 2px var(--default-box-shadow-color);
+
         p {
             align-items: center;
             text-align: center;

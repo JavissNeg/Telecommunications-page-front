@@ -110,6 +110,7 @@ section {
                     margin-bottom: 5%;
                     border: 2px solid var(--default-background-color);
                     border-radius: var(--default-border-radius);
+                    box-shadow: 0 0 2px var(--default-box-shadow-color);
 
                     .time {
                         font-size: 120%;
@@ -135,7 +136,7 @@ section {
                         border: 2px solid var(--default-background-color);
                         border-radius: var(--default-border-radius);
                         line-height: 125%;
-                    
+                        box-shadow: 0 0 2px var(--default-box-shadow-color);
                     }
                     
                 }
