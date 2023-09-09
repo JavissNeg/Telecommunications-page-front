@@ -1,25 +1,44 @@
 <section>
-    <div id="start" class="cont-principal-form" [ngClass]="{'hide-animation': !showStart}">
-        <p class="title">Antes de iniciar</p>
+    <div class="cont-principal-form">
         
-        <div class="cont-rules">
-            <p>Tome en cuenta lo siguiente:</p>
-            <ol>
-                <li *ngFor="let rule of rules">{{rule}}</li>
-            </ol>
+        <div id="window-start" class="window-start" [ngClass]="{'hide-animation': !showStart}">
             
-            <p>Nota: No intentes jugar sucio, ser honesto tiene su recompensa</p>
-            <div class="cont-check">
-                <input id="check" type="checkbox" [(ngModel)]="check">
-                <label for="check">Estoy de acuerdo con lo descrito</label>
+            <p class="title">Antes de iniciar</p>
+        
+            <div class="cont-rules">
+                <p>Tome en cuenta lo siguiente:</p>
+                <ol>
+                    <li *ngFor="let rule of rules">{{rule}}</li>
+                </ol>
+                
+                <p>Nota: No intentes jugar sucio, ser honesto tiene su recompensa</p>
+                <div class="cont-check">
+                    <input id="check" type="checkbox" [(ngModel)]="check">
+                    <label for="check">Estoy de acuerdo con lo descrito</label>
+                </div>
+            </div>
+
+            <div class="btn-start">
+                <app-button-next [text]="'Iniciar'" [valid]="check" [green]="true" (click)="start()">
+                </app-button-next>
             </div>
         </div>
 
-        <div class="btn-start">
-            <app-button-next [text]="'Iniciar'" [valid]="check" [green]="true" (click)="start()">
-            </app-button-next>
+        <div id="window-question" class="window-question" [ngClass]="{'show-animation': showAnswers, 'hide-animation': !showAnswers }">
+            
+            <div class="cont-header">
+                <p class="title">Pregunta {{counter}}</p>
+                <p class="question">{{questions[counter].question_name}}</p>
+            </div>
+            
+            <div class="cont-answers">
+                <div *ngFor="let answer of questions[counter].question_answers; let i = index" class="answer" id="{{i}}"
+                    (click)="selectAnswer(i)">
+                    <p>{{answer}}</p>
+                </div>
+            </div>
+
         </div>
     
     </div>
-    
 </section>

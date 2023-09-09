@@ -17,60 +17,114 @@ section {
         border-radius: var(--default-border-radius);
         text-align: justify;
 
-        .cont-rules {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .window-start {
             width: 100%;
+            height: 100%;
+
+            .cont-rules {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+    
+                ol {
+                    li {
+                        padding-right: 1.6%;
+                    }
+                }
+    
+                .cont-check {
+                    display: flex;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    margin-top: 3%;
+    
+                    input {
+                        appearance: none;
+                        min-width: 18px;
+                        min-height: 18px;
+                        width: 18px;
+                        height: 18px;
+                        margin-right: 10px;
+                        transition: all .1s ease-in-out;
+                        background-color: transparent;
+                        border: 1px solid black;
+                        border-radius: var(--default-border-radius);
+                        
+                        &:checked {
+                            background: url("../../../../assets/svg/check_white.svg");;
+                            background-size: contain;
+                        }
+                    }
+    
+                }
+    
+                .btn-start {
+                    width: 10%;
+                }
+            }
 
             p {
                 margin-bottom: 0;
                 font-weight: bold;
             }
-
-            ol {
-                li {
-                    padding-right: 1.6%;
-                }
-            }
-
-            .cont-check {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-                height: 100%;
-                margin-top: 3%;
-
-                input {
-                    appearance: none;
-                    min-width: 18px;
-                    min-height: 18px;
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 10px;
-                    transition: all .1s ease-in-out;
-                    background-color: transparent;
-                    border: 1px solid black;
-                    border-radius: var(--default-border-radius);
-
-                    &:checked {
-                        background: url("../../../../assets/svg/check_white.svg");;
-                        background-size: contain;
-                    }
-                }
-
-            }
-
-            .btn-start {
-                width: 10%;
-            }
         }
 
+        .window-question {
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            display: none;
+            
+            .cont-header {
+                width: 100%;
+                height: fit-content;
+
+                .question {
+                    text-align: center;
+                    margin: 1% 0 0 0;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+            }
+
+            .cont-answers {
+                width: 100%;
+                height: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                grid-gap: 1%;
+                margin: .9% 0;
+
+                .answer {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    margin: 1% 0;
+                    padding: 2%;
+                    border: 2px solid var(--default-background-color);
+                    border-radius: var(--default-border-radius);
+                    line-height: 125%;
+                    transition: all .2s ease-in-out;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: var(--default-background-color);
+                        transform: scale(1.02);
+                    }
+                }
+            }
+
+        }
     }
 
 }
-
 
 
 @media (max-width: 800px) {
