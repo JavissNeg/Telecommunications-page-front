@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { TestRoutingModule } from './test-routing.module';
 import { UserModule } from '../user/user.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StartComponent } from './pages/start/start.component';
+import { TestComponent } from './pages/test/test.component';
 
 
 @NgModule({
   declarations: [
-    StartComponent
+    TestComponent
   ],
   imports: [
     CommonModule,

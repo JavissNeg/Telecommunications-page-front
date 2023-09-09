@@ -1,15 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Question } from '../../interfaces/question.interfaces';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval } from 'rxjs';
+import { Question } from '../../interfaces/question.interfaces';
 
 @Component({
-  selector: 'app-start',
-  templateUrl: './start.component.html',
-  styleUrls: ['./start.component.scss']
+  selector: 'app-test',
+  templateUrl: './test.component.html',
+  styleUrls: ['./test.component.scss']
 })
-
-export class StartComponent implements OnInit {
+export class TestComponent {
 
   @Output() headerEmitter = new EventEmitter<boolean>();
 
@@ -58,12 +56,8 @@ export class StartComponent implements OnInit {
 
 
   constructor( public router: Router ) { }
-
+  
   ngOnInit(): void {
-    // const cont = interval(1000);
-    // cont.subscribe( (n) => {
-    //   console.log(n);
-    // });
     this.setChangeStartToQuestion();
     window.addEventListener('blur', () => {
       console.log('blur');
