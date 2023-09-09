@@ -15,8 +15,6 @@ export class AppComponent {
       component.headerEmitter.subscribe((data: boolean) => {
         this.header = data;
       });
-      console.log('onActivate');
-      
     }
   }
 

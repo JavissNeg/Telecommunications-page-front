@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Question } from '../../interfaces/question.interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-start',
@@ -8,53 +9,18 @@ import { Question } from '../../interfaces/question.interfaces';
 })
 
 export class StartComponent implements OnInit {
-  
-  constructor() { }
-
-  ngOnInit(): void {
-
-    this.setChangeStartToQuestion();
-    window.addEventListener('blur', () => {
-      console.log('blur');
-    });
-
-  }
-
-
 
   @Output() headerEmitter = new EventEmitter<boolean>();
+
   rules: string[] = [
     'Solo tendras 30 segundos para elegir una respuesta',
     'Por cada respuesta acertada sumaras 1 punto',
     'Si respondes incorrectamente, se te acaba el tiempo o no respondes, no ganas, ni pierdes puntos',
   ];
   check: boolean = false;
+
   showStart: boolean = true;
-  
-  start() :void {
-    this.showStart = false;
-    this.showAnswers = true;
-    this.headerEmitter.emit(this.showStart);
-  }
-
-  setChangeStartToQuestion() :void {
-    const element = document.getElementById('window-start');
-    
-    element?.addEventListener('transitionend', () => {
-      if (!this.showStart) {
-        element.style.display = 'none';
-        
-        const element2 = document.getElementById('window-question');
-        if (element2) {
-          element2.style.display = 'flex';
-        }
-      }
-    });
-
-  }
-
-
-  showAnswers: boolean = false;
+  showSecond: boolean = false;
   counter: number = 0;
   questions: Question[] = [
     {
@@ -85,27 +51,86 @@ export class StartComponent implements OnInit {
     },
   ];
   points: number = 0;
+  clicked: boolean = false;
+  
 
-  selectAnswer(answerID: number ) :void {
-    console.log(answerID+1);
-    this.showAnswers = false;
+  constructor( public router: Router ) { }
 
-    const element = document.getElementById(answerID.toString());
-    element?.addEventListener('transitionend', () => {
-      if ( this.showAnswers == false ) {
-        this.questions[this.counter].question_correctAnswer === answerID+1 ? this.points+=1 : this.points+=0
-        this.counter++;
+  ngOnInit(): void {
+    this.setChangeStartToQuestion();
+    window.addEventListener('blur', () => {
+      console.log('blur');
+    });
+  }
+
+  setChangeStartToQuestion() :void {
+    const element = document.getElementById('window-start');
+    
+    element?.addEventListener('transitionend', (e) => {
+      if (!this.showStart && e.propertyName === 'opacity') {
+        element.style.display = 'none';
         
-        if (this.counter < this.questions.length) {
-          this.showAnswers = true;
-        } else {
-          this.showAnswers = false;
-          // this.showStart = true;
-          // this.headerEmitter.emit(true);
+        const element2 = document.getElementById('window-second');
+        if (element2) {
+          element2.style.display = 'block';
         }
       }
     });
 
+  }
+
+  startTest() :void {
+    this.showStart = false;
+    this.showSecond = true;
+    this.headerEmitter.emit(this.showStart);
+    this.setChangeSecondWindow();
+  }
+
+  selectAnswer( answerID: number ) :void {
+    if (!this.clicked) {
+      const element = document.getElementById(answerID.toString());
+      this.clicked = true;
+      
+      if (element) {
+        if ( this.questions[this.counter].question_correctAnswer === answerID+1 ) {
+          this.points+=1    
+        }
+      }
+      
+      this.showSecond = false;
+    }
+  }
+
+  setChangeSecondWindow() :void {
+      const win_second = document.getElementById('window-second');      
+      win_second?.addEventListener('transitionend', (event) => {
+        
+        if ( !this.showSecond && event.propertyName === 'opacity' ) {
+          const nextCounter = this.counter+1;
+          
+          if ( nextCounter < this.questions.length ) {
+            this.counter++;
+            
+          } else {
+            const cont_question = document.getElementById('cont-questions');
+            if (cont_question) { cont_question.style.display = 'none' };
+            
+            const element2 = document.getElementById('cont-finish');
+            if (element2) {
+              element2.style.display = 'block';
+            }
+          }
+        }
+        
+        this.showSecond = true;
+        this.clicked = false;
+
+      });
+  }
+
+  finishTest() :void {
+    this.router.navigate(['/home']);
+    this.headerEmitter.emit(true);
   }
 
 }

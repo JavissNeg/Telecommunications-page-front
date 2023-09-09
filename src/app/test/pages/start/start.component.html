@@ -18,27 +18,42 @@
                 </div>
             </div>
 
-            <div class="btn-start">
-                <app-button-next [text]="'Iniciar'" [valid]="check" [green]="true" (click)="start()">
+            <div class="cont-button">
+                <app-button-next [text]="'Iniciar'" [valid]="check" [green]="true" (click)="startTest()">
                 </app-button-next>
             </div>
         </div>
 
-        <div id="window-question" class="window-question" [ngClass]="{'show-animation': showAnswers, 'hide-animation': !showAnswers }">
+        <div id="window-second" class="window-second" [ngClass]="{'show-animation': showSecond, 'hide-animation': !showSecond }">
             
-            <div class="cont-header">
-                <p class="title">Pregunta {{counter}}</p>
-                <p class="question">{{questions[counter].question_name}}</p>
-            </div>
-            
-            <div class="cont-answers">
-                <div *ngFor="let answer of questions[counter].question_answers; let i = index" class="answer" id="{{i}}"
-                    (click)="selectAnswer(i)">
-                    <p>{{answer}}</p>
+            <div id="cont-questions" class="cont-questions" >
+                <div class="cont-header">
+                    <p class="title">Pregunta {{counter+1}}</p>
+                    <p class="question">{{questions[counter].question_name}}</p>
+                </div>
+                
+                <div class="cont-answers">
+                    <div *ngFor="let answer of questions[counter].question_answers; let i = index" class="answer" id="{{i}}"
+                        (click)="selectAnswer(i)">
+                        <p>{{answer}}</p>
+                    </div>
                 </div>
             </div>
 
+            <div id="cont-finish" class="cont-finish" >
+                <div class="cont-up">
+                    <p class="title">Resultados</p>
+                    <p class="score">Califficación: <span>{{points}}</span></p>
+                </div>
+
+                <div class="cont-button">
+                    <app-button-next [text]="'Volver al home'" [valid]="true" [green]="true" (click)="finishTest()"></app-button-next>
+                </div>
+                    
+            </div>
+
         </div>
-    
+        
+        
     </div>
 </section>
