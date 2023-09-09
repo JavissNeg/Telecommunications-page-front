@@ -11,7 +11,7 @@
                     <li *ngFor="let rule of rules">{{rule}}</li>
                 </ol>
                 
-                <p>Nota: No intentes jugar sucio, ser honesto tiene su recompensa</p>
+                <p>Nota: No intentes jugar sucio o tu encuesta no será anulada</p>
                 <div class="cont-check">
                     <input id="check" type="checkbox" [(ngModel)]="check">
                     <label for="check">Estoy de acuerdo con lo descrito</label>
@@ -23,13 +23,17 @@
                 </app-button-next>
             </div>
         </div>
-
+        
         <div id="window-second" class="window-second" [ngClass]="{'show-animation': showSecond, 'hide-animation': !showSecond }">
             
             <div id="cont-questions" class="cont-questions" >
                 <div class="cont-header">
                     <p class="title">Pregunta {{counter+1}}</p>
                     <p class="question">{{questions[counter].question_name}}</p>
+                    
+                    <div class="cont-time">
+                        <p class="time">{{time}}seg</p>
+                    </div>
                 </div>
                 
                 <div class="cont-answers">
@@ -43,11 +47,11 @@
             <div id="cont-finish" class="cont-finish" >
                 <div class="cont-up">
                     <p class="title">Resultados</p>
-                    <p class="score">Califficación: <span>{{points}}</span></p>
+                    <p class="score">Calificación: <span>{{points}}</span></p>
                 </div>
 
                 <div class="cont-button">
-                    <app-button-next [text]="'Volver al home'" [valid]="true" [green]="true" (click)="finishTest()"></app-button-next>
+                    <app-button-next [text]="'Volver a la pagina de inicio'" [valid]="true" [green]="true" (click)="finishTest()"></app-button-next>
                 </div>
                     
             </div>

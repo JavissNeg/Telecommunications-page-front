@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Question } from '../../interfaces/question.interfaces';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-start',
@@ -52,11 +53,17 @@ export class StartComponent implements OnInit {
   ];
   points: number = 0;
   clicked: boolean = false;
-  
+  interval: any = 0;
+  time: number = 0;
+
 
   constructor( public router: Router ) { }
 
   ngOnInit(): void {
+    // const cont = interval(1000);
+    // cont.subscribe( (n) => {
+    //   console.log(n);
+    // });
     this.setChangeStartToQuestion();
     window.addEventListener('blur', () => {
       console.log('blur');
@@ -65,8 +72,8 @@ export class StartComponent implements OnInit {
 
   setChangeStartToQuestion() :void {
     const element = document.getElementById('window-start');
-    
     element?.addEventListener('transitionend', (e) => {
+
       if (!this.showStart && e.propertyName === 'opacity') {
         element.style.display = 'none';
         
@@ -75,6 +82,7 @@ export class StartComponent implements OnInit {
           element2.style.display = 'block';
         }
       }
+
     });
 
   }
@@ -84,21 +92,29 @@ export class StartComponent implements OnInit {
     this.showSecond = true;
     this.headerEmitter.emit(this.showStart);
     this.setChangeSecondWindow();
-  }
+    this.startTimer();
 
+    const element = document.getElementsByTagName('section');
+    if (element) {
+      element[0].style.height = '84vh';
+    }
+  }
+  
   selectAnswer( answerID: number ) :void {
-    if (!this.clicked) {
+    if (!this.clicked && this.time > 0) {
+
       const element = document.getElementById(answerID.toString());
-      this.clicked = true;
-      
       if (element) {
         if ( this.questions[this.counter].question_correctAnswer === answerID+1 ) {
-          this.points+=1    
+          this.points+=1; 
         }
       }
       
-      this.showSecond = false;
-    }
+    } 
+    
+    this.clicked = true;
+    this.stopTimer();
+    this.showSecond = false;
   }
 
   setChangeSecondWindow() :void {
@@ -110,14 +126,14 @@ export class StartComponent implements OnInit {
           
           if ( nextCounter < this.questions.length ) {
             this.counter++;
-            
+            this.startTimer();
           } else {
             const cont_question = document.getElementById('cont-questions');
             if (cont_question) { cont_question.style.display = 'none' };
             
             const element2 = document.getElementById('cont-finish');
             if (element2) {
-              element2.style.display = 'block';
+              element2.style.display = 'flex';
             }
           }
         }
@@ -131,6 +147,22 @@ export class StartComponent implements OnInit {
   finishTest() :void {
     this.router.navigate(['/home']);
     this.headerEmitter.emit(true);
+  }
+
+  startTimer() :void {
+    this.time = 10;
+    this.interval = setInterval(() => {
+      if (this.time > 0) {
+        this.time--;
+      }else {
+        this.stopTimer();
+        this.showSecond = false;
+      }
+    }, 1000);
+  }
+
+  stopTimer() :void {
+    clearInterval(this.interval);
   }
 
 }

@@ -1,4 +1,4 @@
-<app-header [ngClass]="{'hide-animation': !header, 'show-animation': header}"></app-header>
+<app-header id="header" [ngClass]="{'hide-animation': !header, 'show-animation': header}"></app-header>
 
 <div>
     <router-outlet (activate)="onActivate($event)"></router-outlet>
