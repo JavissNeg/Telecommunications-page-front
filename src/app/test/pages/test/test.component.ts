@@ -49,11 +49,12 @@ export class TestComponent {
       unit_id: 1
     },
   ];
+
   points: number = 0;
   clicked: boolean = false;
   interval: any = 0;
   time: number = 0;
-
+  totalTime: number = 0;
 
   constructor( public router: Router ) { }
   
@@ -99,7 +100,7 @@ export class TestComponent {
 
       const element = document.getElementById(answerID.toString());
       if (element) {
-        if ( this.questions[this.counter].question_correctAnswer === answerID+1 ) {
+        if ( this.questions[this.counter].question_correctAnswer == answerID+1 ) {
           this.points+=1; 
         }
       }
@@ -147,6 +148,7 @@ export class TestComponent {
     this.time = 10;
     this.interval = setInterval(() => {
       if (this.time > 0) {
+        this.totalTime++;
         this.time--;
       }else {
         this.stopTimer();
