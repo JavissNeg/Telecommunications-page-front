@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { RegisterRequest } from 'src/app/user/interfaces/register.interface';
 import { CodeService } from 'src/app/user/services/code.service';
+import { RegisterService } from 'src/app/user/services/register.service';
 
 @Component({
   selector: 'app-verification-code',
@@ -10,9 +12,9 @@ import { CodeService } from 'src/app/user/services/code.service';
 
 export class VerificationCodeComponent implements OnInit, OnDestroy {
 
-  @Input() phone!: string;
   @Input() show!: boolean;
-  @Output() showEmmiter = new EventEmitter<boolean>();
+  @Input() dataRegister!: RegisterRequest;
+  @Output() showVerificationEmmiter = new EventEmitter<boolean>();
   
   code_digits: string[] = ['', '', '', '', '', '']; 
   code_status: boolean = false;
@@ -21,7 +23,7 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   showInfo: boolean = false;
   info_message: string = '';
 
-  constructor( private router: Router, private codeService: CodeService) { }
+  constructor( private router: Router, private registerService: RegisterService, private codeService: CodeService) { }
 
   ngOnInit(): void {
   }
@@ -56,9 +58,20 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   }
 
   verifyCode(): void {
-    this.codeService.verifyCode( this.phone, this.code_digits.join('') ).subscribe( res => {
-      this.code_status = res.success;
-      this.info_message = res.message;
+
+    this.codeService.verifyCode( this.dataRegister.phone, this.code_digits.join('') ).subscribe( res => {
+      
+      if (res.success) {
+        this.code_status = true;
+
+        this.registerService.createUser( this.dataRegister ).subscribe( res => {
+          this.info_message = res.message;
+        });
+        
+      } else {
+        this.info_message = res.message;      
+      }
+
       this.show = false;
       this.showInfo = true;
     });
@@ -66,14 +79,14 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   }
   
   close(): void {
-    this.ngOnDestroy();
-    this.showEmmiter.emit(false);
+    this.filledFields = false;
+    this.showVerificationEmmiter.emit(false);
   }
 
   closeInfo( showInfo: boolean ): void {
     if (this.code_status) {
       this.router.navigate(['/home']);
-    }else {
+    } else {
       this.showInfo = showInfo;
       this.show = !showInfo;
     }

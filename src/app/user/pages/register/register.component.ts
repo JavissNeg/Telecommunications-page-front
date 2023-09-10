@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CodeService } from '../../services/code.service';
+import { Register, RegisterRequest } from '../../interfaces/register.interface';
 
 @Component({
   selector: 'app-register',
@@ -11,11 +12,11 @@ import { CodeService } from '../../services/code.service';
 
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  showDialog: boolean = true;
+  showDialog: boolean = false;
   registerForm!: FormGroup;
+  register!: RegisterRequest;
   
   constructor( public readonly fb: FormBuilder, public router:Router, public codeService: CodeService ) { }
-  
   
   ngOnInit(): void {
     this.registerForm = this.initForm();
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.registerForm.reset();
   }
-
+  
 
   initForm(): FormGroup {
     function validatePasswordMatch(control: AbstractControl): { [key: string]: boolean } | null {
@@ -64,14 +65,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
   
   save(): void {
-    console.log(this.registerForm.value);
-    console.log(this.registerForm.controls['phone'].value);
+    if (this.registerForm.valid) {
+      
+      this.register = {
+        username: this.registerForm.controls['username'].value,
+        password: this.registerForm.controls['password'].value,
+        name: this.registerForm.controls['name'].value,
+        lastname: this.registerForm.controls['lastname'].value,
+        mail: this.registerForm.controls['mail'].value,
+        phone: this.registerForm.controls['phone'].value,
+      }
+      
+      const phone = this.registerForm.controls['phone'].value;
+      this.codeService.sendCode( phone ).subscribe( (res: any) => {
+        res.success ? this.showDialog = true : this.showDialog = false;
+      });
     
-    const phone = this.registerForm.controls['phone'].value;
-    this.codeService.sendCode( phone ).subscribe( (res: any) => {
-      res.success ? this.showDialog = true : this.showDialog = false;
-    });
-
+    }
   }
 
   checkError( idError: string, controlInput: string ): boolean {

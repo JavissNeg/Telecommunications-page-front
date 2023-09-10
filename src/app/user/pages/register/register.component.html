@@ -54,8 +54,9 @@
             <app-button-next  [text]="'Registrarse'" [valid]="registerForm.valid" [green]="true"></app-button-next>
         </form>
         
-        <app-verification-code [show]="showDialog" [phone]="registerForm.controls['phone'].value"
-            (showEmmiter)="showDialog = $event">
+        <app-verification-code [show]="showDialog" 
+            [dataRegister]="register"
+            (showVerificationEmmiter)="showDialog = $event">
         </app-verification-code>
     </div>
     
