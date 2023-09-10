@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GridData } from 'src/app/interfaces/grid.interfaces';
 import { Subject } from 'src/app/interfaces/subject.interfaces';
-import { SubjectService } from '../../services/subject.service';
+import { SubjectService } from '../../../services/subject/subject.service';
 
 @Component({
   selector: 'app-home',

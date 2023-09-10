@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Unit } from 'src/app/interfaces/unit.interfaces';
 import { GridData } from '../../../interfaces/grid.interfaces';
+import { UnitService } from '../../services/unit.service';
+import { ActivatedRoute } from '@angular/router';
+import { SubjectService } from 'src/app/services/subject/subject.service';
 
 @Component({
   selector: 'app-subject',
@@ -28,17 +31,30 @@ export class SubjectComponent implements OnInit  {
   data: GridData[] = [];
   title = 'Matematicas';
 
-  constructor() { }
+  constructor( public activateRoute: ActivatedRoute, public subejctService: SubjectService, public unitService: UnitService ) { }
 
   ngOnInit(): void {
-    
-    this.units.forEach((unit) => {
-      this.data.push({
-        id_router_unit: unit.unit_id,
-        name: unit.unit_name,
-        description: unit.unit_description,
-        id_router_subject: unit.subject_id
+    this.activateRoute.params.subscribe( ({ id }) => {
+      
+      this.subejctService.getSubjectByID( id ).subscribe( (res) => {
+        res.success ? this.title = res.data![0].subject_name : this.title = '';
       });
+      
+
+      this.unitService.getUnitsBySubjectID( id ).subscribe( (res) => {
+        
+        res.success ? this.units = res.data : this.units = [];
+        this.units.forEach((unit) => {
+          this.data.push({
+            id_router_unit: unit.unit_id,
+            name: unit.unit_name,
+            description: unit.unit_description,
+            id_router_subject: unit.subject_id
+          });
+        });
+
+      });
+
     });
 
   }

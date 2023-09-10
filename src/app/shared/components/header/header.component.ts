@@ -13,8 +13,6 @@ export class HeaderComponent {
 
   goLink(link: string) {
     this.router.navigateByUrl(link);
-    console.log(link);
   }
-
 
 }

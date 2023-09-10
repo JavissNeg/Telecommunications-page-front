@@ -21,4 +21,11 @@ export class SubjectService {
       );
   }
 
+  getSubjectByID( id: number ): Observable<SubjectResponse> {
+    return this.http.get<SubjectResponse>(`${this.base_url}/subject/${id}`)
+      .pipe(
+        catchError( err => of(err.error.msg) )
+      );
+  }
+
 }
