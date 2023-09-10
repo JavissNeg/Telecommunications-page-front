@@ -1,4 +1,4 @@
-export interface QuestionGet {
+export interface QuestionResponse {
     success: boolean;
     message: string;
     data?:    Question[];
@@ -6,9 +6,9 @@ export interface QuestionGet {
 
 export interface Question {
     question_id:            number;
-    question_number:        number;
     question_name:          string;
     question_answers:       string[];
     question_correctAnswer: number;
     unit_id:                number;
 }
+

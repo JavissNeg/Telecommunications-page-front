@@ -4,7 +4,7 @@ import { TestComponent } from './pages/test/test.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':unit_id',
     component: TestComponent
   }
 ];

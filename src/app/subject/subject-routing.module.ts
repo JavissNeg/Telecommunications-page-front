@@ -4,7 +4,7 @@ import { SubjectComponent } from './pages/subject/subject.component';
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: ':subject_id',
     component: SubjectComponent
   },
 ];

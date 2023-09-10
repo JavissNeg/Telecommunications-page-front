@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionService } from '../../services/question.service';
 import { Question } from '../../interfaces/question.interfaces';
 
 @Component({
@@ -20,12 +21,11 @@ export class TestComponent {
   questions: Question[] = [
     {
       question_id: 6,
-      question_number: 1,
       question_name: "Que es un componente?",
       question_answers: [ 
-        'Un componente es aquel que se encarga de gestionar la vista de la aplicación',
-        'Un componente es aquel que se encarga de gestionar la lógica de la aplicación',
-        'Un componente es aquel que se encarga de gestionar la vista y la lógica de la aplicación',
+          'Un componente es aquel que se encarga de gestionar la vista de la aplicación',
+          'Un componente es aquel que se encarga de gestionar la lógica de la aplicación',
+          'Un componente es aquel que se encarga de gestionar la vista y la lógica de la aplicación',
         'Un componente es aquel que se encarga de gestionar la vista, la lógica y los datos de la aplicación',
       ],
       question_correctAnswer: 1,
@@ -33,13 +33,12 @@ export class TestComponent {
     },
     {
       question_id: 6,
-      question_number: 2,
       question_name: "Que es el decorador @Component?",
       question_answers: [
-        'El decorador @Component es el que se encarga de gestionar la vista de la aplicación',
-        'El decorador @Component es el que se encarga de gestionar la lógica de la aplicación',
-        'El decorador @Component es el que se encarga de gestionar la vista y la lógica de la aplicación',
-        'El decorador @Component es el que se encarga de gestionar la vista, la lógica y los datos de la aplicación', 
+          'El decorador @Component es el que se encarga de gestionar la vista de la aplicación',
+          'El decorador @Component es el que se encarga de gestionar la lógica de la aplicación',
+          'El decorador @Component es el que se encarga de gestionar la vista y la lógica de la aplicación',
+          'El decorador @Component es el que se encarga de gestionar la vista, la lógica y los datos de la aplicación', 
       ],
       question_correctAnswer: 2,
       unit_id: 1
@@ -59,9 +58,33 @@ export class TestComponent {
   time: number = 0;
   totalTime: number = 0;
   
-  constructor( public router: Router ) { }
+  constructor( public router: Router, public activatedRoute: ActivatedRoute, public questionService: QuestionService ) { }
   
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe( ({ unit_id }) => {
+
+      this.questionService.getQuestionsByUnit( unit_id ).subscribe( res => {
+        if ( res.success ) {
+          let questions: Question[] = [];
+
+          res.data?.forEach( (question) => {
+            questions.push(
+              {
+                question_id: question.question_id,
+                question_name: question.question_name,
+                question_answers: JSON.parse(String(question.question_answers)),
+                question_correctAnswer: question.question_correctAnswer,
+                unit_id: question.unit_id
+              }
+            );
+          });
+          
+          this.questions = questions;
+        }
+      });
+
+    });
+
     this.setChangeStartToQuestion();
     window.addEventListener('blur', () => {
       console.log('blur');
