@@ -19,4 +19,11 @@ export class UnitService {
         catchError( err => of(err.error)) 
       );
   }
+
+  getUnitByID( unit_id: number ): Observable<UnitResponse> {
+    return this.http.get<UnitResponse>(`${ this.base_url }/unit/${ unit_id }`)
+      .pipe(
+        catchError( err => of(err.error)) 
+      );
+  }
 }

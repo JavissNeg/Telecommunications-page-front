@@ -16,11 +16,7 @@ export class TestComponent {
     'Por cada respuesta acertada sumaras 1 punto',
     'Si respondes incorrectamente, se te acaba el tiempo o no respondes, no ganas, ni pierdes puntos',
   ];
-  check: boolean = false;
-
-  showStart: boolean = true;
-  showSecond: boolean = false;
-  counter: number = 0;
+  
   questions: Question[] = [
     {
       question_id: 6,
@@ -50,12 +46,19 @@ export class TestComponent {
     },
   ];
 
+  check: boolean = false;
+
+  showStart: boolean = true;
+  showSecond: boolean = false;
+  counter: number = 0;
+ 
+
   points: number = 0;
   clicked: boolean = false;
   interval: any = 0;
   time: number = 0;
   totalTime: number = 0;
-
+  
   constructor( public router: Router ) { }
   
   ngOnInit(): void {
