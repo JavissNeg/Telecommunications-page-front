@@ -1,4 +1,4 @@
-export interface GetSubject {
+export interface SubjectResponse {
     success: boolean;
     message: string;
     data?:    Subject[];

@@ -19,18 +19,18 @@ export class GridComponent implements OnInit {
   ngOnInit(): void { }
 
   goToLink( id: number ) {
-    const unit_id = this.data[id].id_router_unit;
+    const subject_id = this.data[id].id_router_subject;
 
     if ( this.type === 'subject' ) 
-    
+      
       this.router.navigate(
-        [ `/home/subject/${unit_id}`  ],
+        [ `/home/subject/${subject_id}`  ],
       );
 
     else {
 
       if ( this.type === 'unit' ) {
-        const subject_id = this.data[id].id_router_subject;
+        const unit_id = this.data[id].id_router_unit;
 
         this.router.navigate(
           [
