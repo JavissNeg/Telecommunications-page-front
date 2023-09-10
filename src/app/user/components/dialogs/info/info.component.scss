@@ -1,0 +1,27 @@
+.cont-info {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    p {
+        width: 100%;
+        height: fit-content;
+        justify-content: center;
+    }
+
+    app-button-next {
+        width: 80%;
+    }
+    
+    img {
+        width: 100%;
+        max-height: 100px;
+        object-fit: contain;
+    }
+}

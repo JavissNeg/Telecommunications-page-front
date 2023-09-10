@@ -3,17 +3,17 @@
     <p class="info">Se ha enviado un codigo al {{phone}}</p>
     <p>Ingresa tu codigo:</p>
     <div class="cont-code">
-        <input [(ngModel)]="code[0]" id="0" type="text" class="box" maxlength="1"
+        <input [(ngModel)]="code_digits[0]" id="0" type="text" class="box" maxlength="1"
             (keyup)="changeBox(0, $event)">
-        <input [(ngModel)]="code[1]" id="1" type="text" class="box" maxlength="1" 
+        <input [(ngModel)]="code_digits[1]" id="1" type="text" class="box" maxlength="1" 
             (keyup)="changeBox(1, $event)">
-        <input [(ngModel)]="code[2]" id="2" type="text" class="box" maxlength="1" 
+        <input [(ngModel)]="code_digits[2]" id="2" type="text" class="box" maxlength="1" 
             (keyup)="changeBox(2, $event)">
-        <input [(ngModel)]="code[3]" id="3" type="text" class="box" maxlength="1" 
+        <input [(ngModel)]="code_digits[3]" id="3" type="text" class="box" maxlength="1" 
             (keyup)="changeBox(3, $event)">
-        <input [(ngModel)]="code[4]" id="4" type="text" class="box" maxlength="1" 
+        <input [(ngModel)]="code_digits[4]" id="4" type="text" class="box" maxlength="1" 
             (keyup)="changeBox(4, $event)">
-        <input [(ngModel)]="code[5]" id="5" type="text" class="box" maxlength="1" 
+        <input [(ngModel)]="code_digits[5]" id="5" type="text" class="box" maxlength="1" 
             (keyup)="changeBox(5, $event)">
     </div>
 
@@ -22,3 +22,5 @@
         <app-button-next [text]="'Cancelar'" [valid]="true" [red]="true" (click)="close()"></app-button-next>
     </div>
 </div>
+
+<app-info [show]="showInfo" [message]="info_message" (showInfoEmmiter)="closeInfo($event)"></app-info>

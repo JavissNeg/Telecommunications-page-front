@@ -66,7 +66,7 @@ export class TestComponent {
       this.questionService.getQuestionsByUnit( unit_id ).subscribe( res => {
         if ( res.success ) {
           let questions: Question[] = [];
-
+          
           res.data?.forEach( (question) => {
             questions.push(
               {
@@ -78,7 +78,7 @@ export class TestComponent {
               }
             );
           });
-          
+
           this.questions = questions;
         }
       });

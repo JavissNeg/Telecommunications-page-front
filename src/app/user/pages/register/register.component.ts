@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CodeService } from '../../services/code.service';
 
 @Component({
   selector: 'app-register',
@@ -10,10 +11,10 @@ import { Router } from '@angular/router';
 
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  showDialog: boolean = false;
+  showDialog: boolean = true;
   registerForm!: FormGroup;
   
-  constructor( public readonly fb: FormBuilder, public router:Router ) { }
+  constructor( public readonly fb: FormBuilder, public router:Router, public codeService: CodeService ) { }
   
   
   ngOnInit(): void {
@@ -66,8 +67,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     console.log(this.registerForm.value);
     console.log(this.registerForm.controls['phone'].value);
     
+    const phone = this.registerForm.controls['phone'].value;
+    this.codeService.sendCode( phone ).subscribe( (res: any) => {
+      res.success ? this.showDialog = true : this.showDialog = false;
+    });
 
-    this.showDialog = true;
   }
 
   checkError( idError: string, controlInput: string ): boolean {

@@ -1,0 +1,4 @@
+<div class="cont-info" *ngIf="show">
+    <p class="title">{{message}}</p>
+    <app-button-next [text]="'Aceptar'" [valid]="true" [green]="true" (click)="close()"></app-button-next>
+</div>

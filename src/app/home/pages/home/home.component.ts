@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   ];
   
   data: GridData[] = [];
-
+  
   constructor( public subjectService: SubjectService ) { }
 
   ngOnInit(): void {
