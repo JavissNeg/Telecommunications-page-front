@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SubjectComponent } from './pages/subject/subject.component';
+import { accessLoginGuard } from '../guards/access-login.guard';
 
 const routes: Routes = [
   {
@@ -9,6 +10,9 @@ const routes: Routes = [
   },
   {
     path: 'test',
+    canActivate: [
+      accessLoginGuard
+    ],
     loadChildren: () => import('../test/test.module').then(m => m.TestModule)
   }
 ];

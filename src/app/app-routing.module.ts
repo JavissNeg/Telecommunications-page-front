@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { noAccessLoginGuard } from './guards/access-login.guard';
 
 const routes: Routes = [
   { 
@@ -13,6 +14,9 @@ const routes: Routes = [
   },
   {
     path:'user',
+    canActivate: [
+      noAccessLoginGuard
+    ],
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
   {

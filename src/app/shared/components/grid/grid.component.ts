@@ -26,7 +26,7 @@ export class GridComponent implements OnInit {
         [ `/home/subject/${subject_id}`  ],
       );
     } else {
-
+      
       if ( this.type === 'unit' ) {
         const unit_id = this.data[id].id_router_unit;
 

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { Router } from '@angular/router';
 import { RegisterRequest } from 'src/app/user/interfaces/register.interface';
 import { SendCode } from 'src/app/user/interfaces/whatsapp.interface';
+import { LoginService } from 'src/app/user/services/login.service';
 import { RegisterService } from 'src/app/user/services/register.service';
 
 @Component({
@@ -24,7 +25,10 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   showInfo: boolean = false;
   info_message: string = '';
 
-  constructor( private router: Router, private registerService: RegisterService ) { }
+  constructor( 
+    private router: Router, private loginService: LoginService,
+    private registerService: RegisterService 
+  ) { }
 
   ngOnInit(): void {
     document.getElementById('0')?.focus();
@@ -63,10 +67,9 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
     
     if ( this.sendCodeResponse.verificationCode == this.code_digits.join('') ) {
       this.code_status = true;
-
+      
       this.registerService.createUser( this.dataRegister ).subscribe( res => {
-        localStorage.setItem('login', 'true');
-        localStorage.setItem('username', res.data[0].username);
+        this.loginService.logged_in( this.dataRegister.username );
         this.info_message = 'Se ha registrado correctamente';
       });
       
