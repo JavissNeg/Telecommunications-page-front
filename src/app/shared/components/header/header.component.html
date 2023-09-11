@@ -5,8 +5,9 @@
         </div>
             
         <div class="right">
-            <a class="link" (click)="goLink('/user/login')">Log in</a>
-            <a class="link" (click)="goLink('/user/register')">Sign in</a>
+            <a class="link" *ngIf="!hasLogin" (click)="goLink('/user/login')">Log in</a>
+            <a class="link" *ngIf="!hasLogin" (click)="goLink('/user/register')">Sign in</a>
+            <a class="link" *ngIf="hasLogin" (click)="logout()">Log out</a>
         </div>
     </nav>
 </header>

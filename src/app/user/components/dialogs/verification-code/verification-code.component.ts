@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login/login.service';
 import { RegisterRequest } from 'src/app/user/interfaces/register.interface';
 import { SendCode } from 'src/app/user/interfaces/whatsapp.interface';
-import { LoginService } from 'src/app/user/services/login.service';
 import { RegisterService } from 'src/app/user/services/register.service';
 
 @Component({
@@ -96,6 +96,7 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   closeInfo( showInfo: boolean ): void {
     if (this.code_status) {
       this.router.navigate(['/home']);
+      window.location.reload();
     } else {
       this.showInfo = showInfo;
       this.show = !showInfo;

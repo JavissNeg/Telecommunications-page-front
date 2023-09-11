@@ -18,4 +18,11 @@ export class LoginService {
     localStorage.removeItem('username');
   }
   
+  is_logged_in(): boolean {
+    const hasLogin = localStorage.getItem('hasLogin');
+    if ( hasLogin === 'true' ) {
+      return true;
+    }
+    return false;
+  }
 }
