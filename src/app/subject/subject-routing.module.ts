@@ -7,6 +7,10 @@ const routes: Routes = [
     path: ':subject_id',
     component: SubjectComponent
   },
+  {
+    path: 'test',
+    loadChildren: () => import('../test/test.module').then(m => m.TestModule)
+  }
 ];
 
 @NgModule({

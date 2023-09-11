@@ -32,7 +32,7 @@ export class GridComponent implements OnInit {
 
         this.router.navigate(
           [
-            `/home/test/${unit_id}`
+            `/home/subject/test/${unit_id}`
           ],
         );
 

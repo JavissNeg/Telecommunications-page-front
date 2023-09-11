@@ -1,17 +1,7 @@
 export interface RegisterResponse {
     success: boolean;
     message: string;
-    data: Register[];
-}
-
-export interface Register {
-    name: string;
-    lastname: string;
-    mail: string;
-    phone: string;
-    username: string;
-    password: string;
-    password_confirmation: string;
+    data: RegisterRequest[];
 }
 
 export interface RegisterRequest {

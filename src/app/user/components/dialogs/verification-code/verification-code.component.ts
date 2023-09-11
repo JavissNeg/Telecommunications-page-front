@@ -27,6 +27,7 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   constructor( private router: Router, private registerService: RegisterService ) { }
 
   ngOnInit(): void {
+    document.getElementById('0')?.focus();
   }
   
   ngOnDestroy(): void {
@@ -64,11 +65,14 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
       this.code_status = true;
 
       this.registerService.createUser( this.dataRegister ).subscribe( res => {
+        localStorage.setItem('login', 'true');
+        localStorage.setItem('username', res.data[0].username);
         this.info_message = 'Se ha registrado correctamente';
       });
       
     } else {
-      this.info_message = 'El código de verificación es incorrecto';      
+      this.info_message = 'El código de verificación es incorrecto';  
+
     }
 
     this.show = false;
@@ -80,7 +84,7 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
     this.filledFields = false;
     this.showVerificationEmmiter.emit(false);
   }
-
+  
   reset(): void {
     this.code_digits = ['', '', '', '', '', '']; 
     this.filledFields = false;
