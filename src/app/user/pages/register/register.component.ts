@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CodeService } from '../../services/code.service';
-import { Register, RegisterRequest } from '../../interfaces/register.interface';
+import { RegisterRequest } from '../../interfaces/register.interface';
+import { WhatsappService } from '../../services/whatsapp.service';
+import { SendCode } from '../../interfaces/whatsapp.interface';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +16,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   showDialog: boolean = false;
   registerForm!: FormGroup;
   register!: RegisterRequest;
+  sendCodeResponse!: SendCode;
   
-  constructor( public readonly fb: FormBuilder, public router:Router, public codeService: CodeService ) { }
+  constructor( public readonly fb: FormBuilder, public router:Router, public whatsappService: WhatsappService ) { }
   
   ngOnInit(): void {
     this.registerForm = this.initForm();
@@ -25,7 +27,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.registerForm.reset();
   }
-  
 
   initForm(): FormGroup {
     function validatePasswordMatch(control: AbstractControl): { [key: string]: boolean } | null {
@@ -77,8 +78,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
       }
       
       const phone = this.registerForm.controls['phone'].value;
-      this.codeService.sendCode( phone ).subscribe( (res: any) => {
-        res.success ? this.showDialog = true : this.showDialog = false;
+      this.whatsappService.sendCode( phone ).subscribe( res => {
+        
+        if (res.success ) { 
+          this.sendCodeResponse = res.data;
+          this.showDialog = true 
+        } 
       });
     
     }

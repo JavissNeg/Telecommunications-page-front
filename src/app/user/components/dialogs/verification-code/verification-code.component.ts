@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegisterRequest } from 'src/app/user/interfaces/register.interface';
-import { CodeService } from 'src/app/user/services/code.service';
+import { SendCode } from 'src/app/user/interfaces/whatsapp.interface';
 import { RegisterService } from 'src/app/user/services/register.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
 
   @Input() show!: boolean;
   @Input() dataRegister!: RegisterRequest;
+  @Input() sendCodeResponse!: SendCode;
   @Output() showVerificationEmmiter = new EventEmitter<boolean>();
   
   code_digits: string[] = ['', '', '', '', '', '']; 
@@ -23,13 +24,13 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   showInfo: boolean = false;
   info_message: string = '';
 
-  constructor( private router: Router, private registerService: RegisterService, private codeService: CodeService) { }
+  constructor( private router: Router, private registerService: RegisterService ) { }
 
   ngOnInit(): void {
   }
   
   ngOnDestroy(): void {
-    this.code_digits = ['', '', '', '', '', '']; 
+    this.reset();
   }
 
   changeBox( id: number, event: KeyboardEvent ): void {
@@ -58,23 +59,20 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   }
 
   verifyCode(): void {
+    
+    if ( this.sendCodeResponse.verificationCode == this.code_digits.join('') ) {
+      this.code_status = true;
 
-    this.codeService.verifyCode( this.dataRegister.phone, this.code_digits.join('') ).subscribe( res => {
+      this.registerService.createUser( this.dataRegister ).subscribe( res => {
+        this.info_message = 'Se ha registrado correctamente';
+      });
       
-      if (res.success) {
-        this.code_status = true;
+    } else {
+      this.info_message = 'El código de verificación es incorrecto';      
+    }
 
-        this.registerService.createUser( this.dataRegister ).subscribe( res => {
-          this.info_message = res.message;
-        });
-        
-      } else {
-        this.info_message = res.message;      
-      }
-
-      this.show = false;
-      this.showInfo = true;
-    });
+    this.show = false;
+    this.showInfo = true;
 
   }
   
@@ -83,12 +81,18 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
     this.showVerificationEmmiter.emit(false);
   }
 
+  reset(): void {
+    this.code_digits = ['', '', '', '', '', '']; 
+    this.filledFields = false;
+  }
+
   closeInfo( showInfo: boolean ): void {
     if (this.code_status) {
       this.router.navigate(['/home']);
     } else {
       this.showInfo = showInfo;
       this.show = !showInfo;
+      this.reset();
     }
   }
 

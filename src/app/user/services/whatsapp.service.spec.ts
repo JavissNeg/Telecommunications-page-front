@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CodeService } from './code.service';
+import { WhatsappService } from './whatsapp.service';
 
-describe('CodeService', () => {
-  let service: CodeService;
+describe('WhatsappService', () => {
+  let service: WhatsappService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CodeService);
+    service = TestBed.inject(WhatsappService);
   });
 
   it('should be created', () => {
