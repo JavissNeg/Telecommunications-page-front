@@ -15,7 +15,7 @@ export class RegisterService {
   
   createUser( data: RegisterRequest ): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(`${this.base_url}/login/add`, data)
-      .pipe( catchError( err => of(err) ) );
+      .pipe( catchError( err => of(err.error) ) );
   }
   
 }

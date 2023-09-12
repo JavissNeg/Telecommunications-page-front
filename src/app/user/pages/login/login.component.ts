@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   
   loginForm!: FormGroup;
 
-  constructor( public fb: FormBuilder, public router: Router ) { }
+  constructor( public fb: FormBuilder, public router: Router, private loginService: LoginService ) { }
 
 
   ngOnInit(): void {
@@ -35,7 +36,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
-    console.log(this.loginForm.value);
+    this.loginService.auth(this.loginForm.value).subscribe( res => {
+      if ( res.success ) {
+        this.loginService.logged_in(this.loginForm.value.username);
+      }
+    });
   }
 
   goLink(link: string): void {

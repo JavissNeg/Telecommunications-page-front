@@ -66,16 +66,20 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
   verifyCode(): void {
     
     if ( this.sendCodeResponse.verificationCode == this.code_digits.join('') ) {
-      this.code_status = true;
-      
+
       this.registerService.createUser( this.dataRegister ).subscribe( res => {
-        this.loginService.logged_in( this.dataRegister.username );
-        this.info_message = 'Se ha registrado correctamente';
+        
+        if ( res.success ) {
+          this.info_message = 'Se ha registrado correctamente';
+          this.code_status = true;
+        } else {
+          this.info_message = res.message;
+        }
+
       });
       
     } else {
       this.info_message = 'El código de verificación es incorrecto';  
-
     }
 
     this.show = false;
@@ -95,8 +99,7 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
 
   closeInfo( showInfo: boolean ): void {
     if (this.code_status) {
-      this.router.navigate(['/home']);
-      window.location.reload();
+      this.loginService.logged_in( this.dataRegister.username );
     } else {
       this.showInfo = showInfo;
       this.show = !showInfo;

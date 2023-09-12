@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     
     this.subjectService.getSubjects().subscribe( res => {
+
       res.success ? this.subject = res.data! : this.subject = [];
       
       this.subject.forEach(item => {

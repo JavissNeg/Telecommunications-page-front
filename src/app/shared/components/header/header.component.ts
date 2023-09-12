@@ -17,10 +17,10 @@ export class HeaderComponent {
   goLink(link: string) {
     this.router.navigateByUrl(link);
   }
-
+  
   logout() {
-    this.loginService.logged_out();
     this.router.navigateByUrl('/home');
-    window.location.reload();
+    this.loginService.logged_out();
   }
+
 }
