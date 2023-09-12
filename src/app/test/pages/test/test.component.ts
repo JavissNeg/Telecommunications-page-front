@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../../services/question.service';
 import { Question } from '../../interfaces/question.interfaces';
+import { QuestionService } from '../../services/question/question.service';
+import { ScoreService } from '../../services/score/score.service';
+import { ScoreRequest } from '../../interfaces/score.intefaces';
 
 @Component({
   selector: 'app-test',
@@ -17,7 +19,7 @@ export class TestComponent {
     'Por cada respuesta acertada sumaras 1 punto',
     'Si respondes incorrectamente, se te acaba el tiempo o no respondes, no ganas, ni pierdes puntos',
   ];
-  
+
   questions: Question[] = [
     {
       question_id: 6,
@@ -45,6 +47,7 @@ export class TestComponent {
     },
   ];
 
+  unit_id: number = 0;
   check: boolean = false;
 
   showStart: boolean = true;
@@ -58,16 +61,18 @@ export class TestComponent {
   time: number = 0;
   totalTime: number = 0;
   
-  constructor( public router: Router, public activatedRoute: ActivatedRoute, public questionService: QuestionService ) { }
+  constructor( private router: Router, private activatedRoute: ActivatedRoute, 
+    private questionService: QuestionService, private scoreService: ScoreService ) { }
   
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( ({ unit_id }) => {
-
+      
+      this.unit_id = unit_id;
       this.questionService.getQuestionsByUnit( unit_id ).subscribe( res => {
         if ( res.success ) {
           let questions: Question[] = [];
           
-          res.data?.forEach( (question) => {
+          res.data?.forEach( ( question: Question ) => {
             questions.push(
               {
                 question_id: question.question_id,
@@ -86,9 +91,9 @@ export class TestComponent {
     });
 
     this.setChangeStartToQuestion();
-    window.addEventListener('blur', () => {
-      console.log('blur');
-    });
+    // window.addEventListener('blur', () => {
+    //   console.log('blur');
+    // });
   }
 
   setChangeStartToQuestion() :void {
@@ -166,8 +171,24 @@ export class TestComponent {
   }
 
   finishTest() :void {
-    this.router.navigate(['/home']);
-    this.headerEmitter.emit(true);
+
+    const id = Number(localStorage.getItem('login_id'));
+    const score: ScoreRequest = {
+      score: this.points,
+      time: this.totalTime,
+      resume: "",
+      login_id: id,
+      unit_id: this.unit_id
+    }
+    
+    this.scoreService.addScore( score ).subscribe( res => {
+      
+      if ( res.success ) {
+        this.router.navigate(['/home']);
+        this.headerEmitter.emit(true); 
+      }
+
+    });
   }
 
   startTimer() :void {

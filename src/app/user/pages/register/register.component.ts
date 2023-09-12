@@ -42,25 +42,25 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     return this.fb.group({
       name: [
-        'Javier', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
+        '', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
       ],
       lastname: [
-        'Negrete', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]
+        '', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]
       ],
       mail: [
-        'negretbtino@hotmail.com', [Validators.required, Validators.email, Validators.maxLength(30)]
+        '', [Validators.required, Validators.email, Validators.maxLength(30)]
       ],
       phone: [
-        '7297056530', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
+        '', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
       ],
       username: [
-        'Admin', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]
+        '', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]
       ],
       password: [
-        '12345678', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]
+        '', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]
       ],
       password_confirmation: [
-        '12345678', [Validators.required, Validators.minLength(8), Validators.maxLength(20), validatePasswordMatch]
+        '', [Validators.required, Validators.minLength(8), Validators.maxLength(20), validatePasswordMatch]
       ],
     });
   }

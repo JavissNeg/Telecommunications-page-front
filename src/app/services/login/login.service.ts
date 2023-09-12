@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
-import { Auth, AuthResponse } from 'src/app/user/interfaces/login.interface';
+import { Auth, AuthResponse, LoginResponse } from 'src/app/user/interfaces/login.interface';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -21,17 +21,29 @@ export class LoginService {
         catchError( err => of(err.error) )
       );
   }
-
+  
   logged_in ( username: string ) {
     localStorage.setItem('hasLogin', 'true');
     localStorage.setItem('username', username);
     this.loginEmmiter.emit(true);
-    window.location.reload();
+
+    const login: Observable<LoginResponse> =  this.http.get<LoginResponse>(`${this.base_url}/login/${username}`)
+      .pipe(
+        catchError( err => of(err.error) )
+      );
+    
+    login.subscribe( res => {
+      if ( res.success ) {
+        localStorage.setItem( 'login_id', String(res.data.login_id) );
+        window.location.reload();
+      }
+    });
   }
   
   logged_out () {
     localStorage.removeItem('hasLogin');
     localStorage.removeItem('username');
+    localStorage.removeItem('login_id');
     this.loginEmmiter.emit(false);
     window.location.reload();
   }
@@ -42,5 +54,19 @@ export class LoginService {
       return true;
     }
     return false;
+  }
+
+
+  // No used
+  setIdLogin( username: string ) {
+    const login: Observable<LoginResponse> =  this.http.get<LoginResponse>(`${this.base_url}/login/${username}`)
+      .pipe(
+        catchError( err => of(err.error) )
+      );
+    
+    login.subscribe( res => {
+      if ( res.success )
+        localStorage.setItem( 'login_id', String(res.data.login_id) );
+    });
   }
 }
