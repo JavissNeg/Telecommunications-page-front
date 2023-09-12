@@ -60,11 +60,15 @@ export class TestComponent {
   interval: any = 0;
   time: number = 0;
   totalTime: number = 0;
+  login_id: number = 0;
+  score!: ScoreRequest
   
   constructor( private router: Router, private activatedRoute: ActivatedRoute, 
     private questionService: QuestionService, private scoreService: ScoreService ) { }
   
   ngOnInit(): void {
+    this.login_id = Number(localStorage.getItem('login_id'));
+
     this.activatedRoute.params.subscribe( ({ unit_id }) => {
       
       this.unit_id = unit_id;
@@ -91,9 +95,15 @@ export class TestComponent {
     });
 
     this.setChangeStartToQuestion();
-    // window.addEventListener('blur', () => {
-    //   console.log('blur');
-    // });
+    window.addEventListener('blur', () => {
+
+      if ( this.showSecond ) {
+        this.saveDataScore();
+        this.sendScore();
+        alert('Haz intentado hacer trampa, tus respuestas han sido enviadas')
+      }
+
+    });
   }
 
   setChangeStartToQuestion() :void {
@@ -119,6 +129,7 @@ export class TestComponent {
     this.headerEmitter.emit(this.showStart);
     this.setChangeSecondWindow();
     this.startTimer();
+    this.saveDataScore
 
     const element = document.getElementsByTagName('section');
     if (element) {
@@ -127,12 +138,13 @@ export class TestComponent {
   }
   
   selectAnswer( answerID: number ) :void {
-    if (!this.clicked && this.time > 0) {
+    if (!this.clicked) {
 
       const element = document.getElementById(answerID.toString());
       if (element) {
         if ( this.questions[this.counter].question_correctAnswer == answerID+1 ) {
           this.points+=1; 
+          this.saveDataScore();
         }
       }
       
@@ -171,24 +183,8 @@ export class TestComponent {
   }
 
   finishTest() :void {
-
-    const id = Number(localStorage.getItem('login_id'));
-    const score: ScoreRequest = {
-      score: this.points,
-      time: this.totalTime,
-      resume: "",
-      login_id: id,
-      unit_id: this.unit_id
-    }
-    
-    this.scoreService.addScore( score ).subscribe( res => {
-      
-      if ( res.success ) {
-        this.router.navigate(['/home']);
-        this.headerEmitter.emit(true); 
-      }
-
-    });
+    this.saveDataScore();
+    this.sendScore();
   }
 
   startTimer() :void {
@@ -208,4 +204,24 @@ export class TestComponent {
     clearInterval(this.interval);
   }
 
+  saveDataScore() :void {
+    this.score = {
+      score: this.points,
+      time: this.totalTime,
+      resume: "",
+      login_id: this.login_id,
+      unit_id: this.unit_id
+    }
+  }
+
+  sendScore(): void {
+    this.scoreService.addScore( this.score ).subscribe( res => {
+      
+      if ( res.success ) {
+        this.router.navigate(['/home']);
+        this.headerEmitter.emit(true); 
+      }
+
+    });
+  }
 }
