@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from '../../interfaces/question.interfaces';
 import { QuestionService } from '../../services/question/question.service';
@@ -10,14 +10,15 @@ import { ScoreRequest } from '../../interfaces/score.intefaces';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss']
 })
-export class TestComponent {
+export class TestComponent implements OnDestroy {
 
   @Output() headerEmitter = new EventEmitter<boolean>();
 
   rules: string[] = [
-    'Solo tendras 30 segundos para elegir una respuesta',
+    'Solo tendras 60 segundos para elegir una de las 4 respuestas',
     'Por cada respuesta acertada sumaras 1 punto',
-    'Si respondes incorrectamente, se te acaba el tiempo o no respondes, no ganas, ni pierdes puntos',
+    'Si respondes incorrectamente, se te acaba el tiempo o no respondes, no ganaras, ni perderás puntos',
+    'Puedes realiiar el test las veces que quieras, pero solo se tomara en cuenta la puntuación obtenida de tu primer intento, no la desaproveches'
   ];
 
   questions: Question[] = [
@@ -49,24 +50,45 @@ export class TestComponent {
 
   unit_id: number = 0;
   check: boolean = false;
-
   showStart: boolean = true;
   showSecond: boolean = false;
   counter: number = 0;
- 
-
-  points: number = 0;
+  points!: number;
   clicked: boolean = false;
   interval: any = 0;
-  time: number = 0;
-  totalTime: number = 0;
+  time!: number;
+  totalTime!: number;
   login_id: number = 0;
   score!: ScoreRequest
-  
+  blurActivate!: boolean;
+
   constructor( private router: Router, private activatedRoute: ActivatedRoute, 
-    private questionService: QuestionService, private scoreService: ScoreService ) { }
+    private questionService: QuestionService, private scoreService: ScoreService ) { 
+
+    window.addEventListener('blur', () => {
+
+      if ( this.blurActivate && this.showSecond ) {
+        this.blurActivate = false;
+        this.finishTest();
+        alert('Haz intentado hacer trampa, tus respuestas han sido enviadas')
+      }
+
+    });
+
+    window.addEventListener('beforeunload', (event) => {
+      if ( this.showSecond ) {
+        event.preventDefault();
+      }
+    });
+
+  }
   
   ngOnInit(): void {
+    this.check = false;
+    this.clicked = false;
+    this.points = 0;
+    this.totalTime = 0;
+    this.blurActivate = true;
     this.login_id = Number(localStorage.getItem('login_id'));
 
     this.activatedRoute.params.subscribe( ({ unit_id }) => {
@@ -95,15 +117,11 @@ export class TestComponent {
     });
 
     this.setChangeStartToQuestion();
-    window.addEventListener('blur', () => {
+  }
 
-      if ( this.showSecond ) {
-        this.saveDataScore();
-        this.sendScore();
-        alert('Haz intentado hacer trampa, tus respuestas han sido enviadas')
-      }
-
-    });
+  ngOnDestroy(): void {
+    this.showSecond = false;
+    this.showStart = true;
   }
 
   setChangeStartToQuestion() :void {
@@ -129,12 +147,6 @@ export class TestComponent {
     this.headerEmitter.emit(this.showStart);
     this.setChangeSecondWindow();
     this.startTimer();
-    this.saveDataScore
-
-    const element = document.getElementsByTagName('section');
-    if (element) {
-      element[0].style.height = '84vh';
-    }
   }
   
   selectAnswer( answerID: number ) :void {
@@ -144,8 +156,10 @@ export class TestComponent {
       if (element) {
         if ( this.questions[this.counter].question_correctAnswer == answerID+1 ) {
           this.points+=1; 
-          this.saveDataScore();
         }
+
+        this.saveDataScore();
+        
       }
       
     } 
@@ -172,6 +186,7 @@ export class TestComponent {
             const element2 = document.getElementById('cont-finish');
             if (element2) {
               element2.style.display = 'flex';
+              this.blurActivate = false;
             }
           }
         }
@@ -183,12 +198,15 @@ export class TestComponent {
   }
 
   finishTest() :void {
-    this.saveDataScore();
-    this.sendScore();
+    if ( !this.clicked ) {
+      this.clicked = true;
+      this.saveDataScore();
+      this.sendScore();
+    }
   }
 
   startTimer() :void {
-    this.time = 10;
+    this.time = 60;
     this.interval = setInterval(() => {
       if (this.time > 0) {
         this.totalTime++;
@@ -218,6 +236,7 @@ export class TestComponent {
     this.scoreService.addScore( this.score ).subscribe( res => {
       
       if ( res.success ) {
+        this.blurActivate = false;
         this.router.navigate(['/home']);
         this.headerEmitter.emit(true); 
       }
