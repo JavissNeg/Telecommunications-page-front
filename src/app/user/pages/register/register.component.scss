@@ -43,16 +43,24 @@ section {
                 font-weight: 300;
                 color: red;
             }
+
+            .error_message {
+                margin-top: 3%;
+                text-align: center;
+            }
     
-            .cont-message {
-                margin-top: 6%;
+            div {
                 text-align: center;
                 font-size: 80%;
-    
-                span:hover {
-                    cursor: pointer;
-                    color: var(--default-text-hover-color);
-                }
+            }
+
+            .cont-forgot-password {
+                margin-top: 3%;
+            }
+
+            .cont-suggestion {
+                margin-top: 1.5%;
+                margin-bottom: 1%;
             }
             
             .input-valid {

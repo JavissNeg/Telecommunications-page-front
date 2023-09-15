@@ -39,14 +39,14 @@
                 formControlName="password" (keyup)="checkError('error_password', 'password')"
                 [ngClass]="{'input-valid': registerForm.get('password')?.valid, 'input-invalid': registerForm.get('password')?.invalid}">
             <p id="error_password" *ngIf="registerForm.controls['password']?.invalid"></p>
-
+            
             <label for="password_confirmation">Confirmar contraseña:</label>
             <input id="password_confirmation" type="password" placeholder="Ej. 12345678" maxlength="20"
                 formControlName="password_confirmation" (keyup)="checkError('error_password_confirmation', 'password_confirmation')"
                 [ngClass]="{'input-valid': registerForm.get('password_confirmation')?.valid, 'input-invalid': registerForm.get('password_confirmation')?.invalid}">
             <p id="error_password_confirmation" *ngIf="registerForm.controls['password_confirmation']?.invalid"></p>
             
-            <div class="cont-message">
+            <div class="cont-suggestion">
                 ¿Ya tienes una cuenta? <br>
                 <a (click)="goLink('/user/login')">Iniciar sesión</a>
             </div>

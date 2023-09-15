@@ -12,6 +12,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class LoginComponent implements OnInit, OnDestroy {
   
   loginForm!: FormGroup;
+  error_message: string = '';
 
   constructor( public fb: FormBuilder, public router: Router, private loginService: LoginService ) { }
 
@@ -35,10 +36,44 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
+  checkError( idError: string, controlInput: string ): boolean {
+    const htmlElement = document.getElementById(idError);
+    const htmlControlInput = this.loginForm.controls[controlInput]
+    
+    if (htmlElement) {
+
+      if ( htmlControlInput.hasError('required') ) {
+        htmlElement.textContent = 'Este campo es obligatorio';
+        return true;
+
+      } else {
+        if ( htmlControlInput.hasError('minlength') ) {
+          const minLength = htmlControlInput.errors?.['minlength']?.requiredLength;
+          htmlElement.textContent = `Este campo debe tener al menos ${minLength} caracteres`;
+          return true;
+
+        } else {
+          if ( htmlControlInput.hasError('maxlength') ) {
+            const maxLength = htmlControlInput.errors?.['maxlength']?.requiredLength;
+            htmlElement.textContent = `Este campo debe tener menos de ${maxLength} caracteres`;
+            return true;
+            
+          }
+
+        }
+      }
+
+    }
+    
+    return false;
+  }
+
   login(): void {
     this.loginService.auth(this.loginForm.value).subscribe( res => {
       if ( res.success ) {
         this.loginService.logged_in(this.loginForm.value.username);
+      } else {
+        this.error_message = 'Nombre de usuario o contraseña incorrectos';
       }
     });
   }

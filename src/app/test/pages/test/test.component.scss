@@ -18,6 +18,7 @@ section {
         padding: 20px 20px;
         border-radius: var(--default-border-radius);
         text-align: justify;
+        transition: all .5s ease-in-out;
 
         .window-start {
             display: flex;

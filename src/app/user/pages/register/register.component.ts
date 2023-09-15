@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   checkError( idError: string, controlInput: string ): boolean {
     const htmlElement = document.getElementById(idError);
     const htmlControlInput = this.registerForm.controls[controlInput]
-
+    
     if (htmlElement) {
 
       if ( htmlControlInput.hasError('required') ) {
