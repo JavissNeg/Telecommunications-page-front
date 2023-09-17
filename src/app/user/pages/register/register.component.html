@@ -10,7 +10,7 @@
                 [ngClass]="{'input-valid': registerForm.get('name')?.valid, 'input-invalid': registerForm.get('name')?.invalid}">
             <p id="error_name" *ngIf="registerForm.controls['name']?.invalid"></p>
 
-            <label for="lastname" >Apellido:</label>
+            <label for="lastname" >Apellido(s):</label>
             <input id="lastname" type="text" placeholder="Ej. Negrete" maxlength="25"
                 formControlName="lastname" (keyup)="checkError('error_lastname', 'lastname')"
                 [ngClass]="{'input-valid': registerForm.get('lastname')?.valid, 'input-invalid': registerForm.get('lastname')?.invalid}">
@@ -29,7 +29,7 @@
             <p id="error_phone" *ngIf="registerForm.controls['phone']?.invalid"></p>
 
             <label for="username">Nombre de usuario:</label>
-            <input for="username" type="text" placeholder="Ej. JavierNegrete" maxlength="15"
+            <input for="username" type="text" placeholder="Ej. Javiss" maxlength="15"
                 formControlName="username" (keyup)="checkError('error_username', 'username')"
                 [ngClass]="{'input-valid': registerForm.get('username')?.valid, 'input-invalid': registerForm.get('username')?.invalid}">
             <p id="error_username" *ngIf="registerForm.controls['username']?.invalid"></p>

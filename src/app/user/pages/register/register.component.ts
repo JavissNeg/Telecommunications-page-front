@@ -45,10 +45,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
         '', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]
       ],
       lastname: [
-        '', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]
+        '', [Validators.required, Validators.minLength(5), Validators.maxLength(45)]
       ],
       mail: [
-        '', [Validators.required, Validators.email, Validators.maxLength(30)]
+        '', [Validators.required, Validators.email, Validators.maxLength(50)]
       ],
       phone: [
         '', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]

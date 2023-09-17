@@ -75,7 +75,7 @@ export class TestComponent implements OnDestroy {
 
     });
 
-    window.addEventListener('beforeunload', (event) => {
+    window.addEventListener('beforeunload', () => {
       if ( this.showSecond ) {
         this.finishTest();
       }
@@ -206,7 +206,8 @@ export class TestComponent implements OnDestroy {
   }
 
   startTimer() :void {
-    this.time = 60;
+    this.time = 75;
+
     this.interval = setInterval(() => {
       if (this.time > 0) {
         this.totalTime++;
