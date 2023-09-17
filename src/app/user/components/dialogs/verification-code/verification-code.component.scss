@@ -10,6 +10,7 @@
     height: 100%;
     background-color: transparent;
     border-radius: var(--default-border-radius);
+    text-align: center;
 
     .info {
         margin-top: 0px;
@@ -26,7 +27,6 @@
             border: 0;
             border-bottom: 1.5px solid var(--default-border-color); 
             max-width: 25px;
-            text-align: center;
             background-color: transparent;
 
             &:focus {

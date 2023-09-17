@@ -40,13 +40,6 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
 
   changeBox( id: number, event: KeyboardEvent ): void {
 
-    if ( event.key && isNaN(Number(event.key)) ) {
-      event.stopPropagation();
-      this.code_digits[id] = '';
-      return;
-    }
-
-
     const result = this.code_digits.every( digit => digit.length > 0 );
     
     if (result) {

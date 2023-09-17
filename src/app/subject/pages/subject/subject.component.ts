@@ -15,7 +15,7 @@ export class SubjectComponent implements OnInit  {
   units: UnitsBySubject[] = [];
 
   data: GridData[] = [];
-  title = 'Matematicas';
+  title = '';
 
   constructor( public activateRoute: ActivatedRoute, public subjectService: SubjectService ) { }
 
