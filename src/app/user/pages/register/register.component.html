@@ -11,13 +11,13 @@
             <p id="error_name" *ngIf="registerForm.controls['name']?.invalid"></p>
 
             <label for="lastname" >Apellido(s):</label>
-            <input id="lastname" type="text" placeholder="Ej. Negrete" maxlength="25"
+            <input id="lastname" type="text" placeholder="Ej. Negrete" maxlength="45"
                 formControlName="lastname" (keyup)="checkError('error_lastname', 'lastname')"
                 [ngClass]="{'input-valid': registerForm.get('lastname')?.valid, 'input-invalid': registerForm.get('lastname')?.invalid}">
             <p id="error_lastname" *ngIf="registerForm.controls['lastname']?.invalid"></p>
 
             <label for="mail">Correo electrónico:</label>
-            <input id="mail" type="email" placeholder="Ej. alguien@gmail.com" maxlength="30" 
+            <input id="mail" type="email" placeholder="Ej. alguien@gmail.com" maxlength="50" 
                 formControlName="mail" (keyup)="checkError('error_mail', 'mail')"
                 [ngClass]="{'input-valid': registerForm.get('mail')?.valid, 'input-invalid': registerForm.get('mail')?.invalid}">
             <p id="error_mail" *ngIf="registerForm.controls['mail']?.invalid"></p>
