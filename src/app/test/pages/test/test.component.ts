@@ -77,7 +77,7 @@ export class TestComponent implements OnDestroy {
 
     window.addEventListener('beforeunload', (event) => {
       if ( this.showSecond ) {
-        event.preventDefault();
+        this.finishTest();
       }
     });
 

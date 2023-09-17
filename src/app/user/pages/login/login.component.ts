@@ -69,11 +69,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
-    this.loginService.auth(this.loginForm.value).subscribe( res => {
+    this.loginService.auth( this.loginForm.value ).subscribe( res => {
       if ( res.success ) {
         this.loginService.logged_in(this.loginForm.value.username);
       } else {
         this.error_message = 'Nombre de usuario o contraseña incorrectos';
+
+        setTimeout(() => {
+          this.error_message = '';
+        }, 3000);
       }
     });
   }
