@@ -234,14 +234,38 @@ export class TestComponent implements OnDestroy {
   }
 
   sendScore(): void {
-    this.scoreService.addScore( this.score ).subscribe( res => {
+    
+    this.scoreService.getScoresByUnitAndLogin( this.unit_id, this.login_id ).subscribe( res => {
+
+      let existScoreEqual = false;
+      res.data?.forEach( ( item ) => {
+        
+        if ( item.score_points === this.points ) {
+          existScoreEqual = true;
+        }
+        
+      });
+
+      if (existScoreEqual === false) {
+
+        this.scoreService.addScore( this.score ).subscribe( res => {
       
-      if ( res.success ) {
+          if ( res.success ) {
+            this.blurActivate = false;
+            this.router.navigate(['/home']);
+            this.headerEmitter.emit(true); 
+          }
+
+        });
+
+      } else {
         this.blurActivate = false;
         this.router.navigate(['/home']);
-        this.headerEmitter.emit(true); 
+        this.headerEmitter.emit(true);
       }
-
+      
     });
+
   }
+
 }

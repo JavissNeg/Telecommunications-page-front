@@ -27,7 +27,7 @@
                 formControlName="phone" (keyup)="checkError('error_phone', 'phone')"
                 [ngClass]="{'input-valid': registerForm.get('phone')?.valid, 'input-invalid': registerForm.get('phone')?.invalid}">
             <p id="error_phone" *ngIf="registerForm.controls['phone']?.invalid"></p>
-
+            
             <label for="username">Nombre de usuario:</label>
             <input for="username" type="text" placeholder="Ej. Javiss" maxlength="15"
                 formControlName="username" (keyup)="checkError('error_username', 'username')"

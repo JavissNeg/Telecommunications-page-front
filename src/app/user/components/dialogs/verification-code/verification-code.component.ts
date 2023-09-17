@@ -24,7 +24,7 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
   info_message: string = '';
-
+  
   constructor( 
     private router: Router, private loginService: LoginService,
     private registerService: RegisterService 

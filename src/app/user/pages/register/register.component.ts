@@ -13,7 +13,7 @@ import { SendCode } from '../../interfaces/whatsapp.interface';
 
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  showDialog: boolean = true;
+  showDialog: boolean = false;
   registerForm!: FormGroup;
   register!: RegisterRequest;
   sendCodeResponse!: SendCode;
