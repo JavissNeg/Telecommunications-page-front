@@ -4,6 +4,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { RegisterRequest } from 'src/app/user/interfaces/register.interface';
 import { SendCode } from 'src/app/user/interfaces/whatsapp.interface';
 import { RegisterService } from 'src/app/user/services/register.service';
+import { VerificationService } from 'src/app/user/services/verification.service';
 
 @Component({
   selector: 'app-verification-code',
@@ -24,10 +25,13 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
   info_message: string = '';
+  attemptsMax: number = 6;
+  attemptsCounter: number = 0;
   
   constructor( 
-    private router: Router, private loginService: LoginService,
-    private registerService: RegisterService 
+    private loginService: LoginService,
+    private registerService: RegisterService,
+    private verificationService: VerificationService,
   ) { }
 
   ngOnInit(): void {
@@ -58,21 +62,37 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
 
   verifyCode(): void {
     
-    if ( this.sendCodeResponse.verificationCode == this.code_digits.join('') ) {
+    if ( this.attemptsCounter < this.attemptsMax ) {
 
-      this.registerService.createUser( this.dataRegister ).subscribe( res => {
+      if ( this.sendCodeResponse.verificationCode == this.code_digits.join('') ) {
+
+        this.registerService.createUser( this.dataRegister ).subscribe( res => {
+          
+          if ( res.success ) {
+            this.info_message = 'Se ha registrado correctamente';
+            this.code_status = true;
+          } else {
+            this.info_message = res.message;
+          }
+  
+        });
         
-        if ( res.success ) {
-          this.info_message = 'Se ha registrado correctamente';
-          this.code_status = true;
-        } else {
-          this.info_message = res.message;
-        }
+      } else {
 
-      });
-      
+        this.attemptsCounter++;
+        this.info_message = 'El código de verificación es incorrecto' +
+          '\nTe quedan ' + (this.attemptsMax - this.attemptsCounter) + ' intentos'; 
+        
+      }
+
     } else {
-      this.info_message = 'El código de verificación es incorrecto';  
+      
+      if ( !localStorage.getItem('block_date') ) {
+        this.verificationService.blockUser();
+      }
+      
+      this.info_message = 'Ha superado el número de intentos permitidos, vuelve a intentarlo en 30 minutos';
+    
     }
 
     this.show = false;

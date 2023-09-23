@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RegisterRequest } from '../../interfaces/register.interface';
 import { WhatsappService } from '../../services/whatsapp.service';
 import { SendCode } from '../../interfaces/whatsapp.interface';
+import { VerificationService } from '../../services/verification.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   register!: RegisterRequest;
   sendCodeResponse!: SendCode;
   
-  constructor( public readonly fb: FormBuilder, public router:Router, public whatsappService: WhatsappService ) { }
+  constructor( public readonly fb: FormBuilder, public router:Router, 
+    public whatsappService: WhatsappService, private verificationService: VerificationService ) { }
   
   ngOnInit(): void {
     this.registerForm = this.initForm();
@@ -78,13 +80,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
       }
       
       const phone = this.registerForm.controls['phone'].value;
-      this.whatsappService.sendCode( phone ).subscribe( res => {
+      const date = new Date();
+      const actual_date = date.getTime();
+      const block_date = Number.parseInt( localStorage.getItem('block_date') || date.getTime().toString() );
+
+      if ( block_date <= actual_date ) {
         
-        if (res.success ) { 
-          this.sendCodeResponse = res.data;
-          this.showDialog = true 
-        } 
-      });
+        this.verificationService.unBlockUser();
+        this.whatsappService.sendCode( phone ).subscribe( res => {
+        
+          if (res.success ) { 
+            this.sendCodeResponse = res.data;
+            this.showDialog = true 
+          } 
+        });
+
+      }
     
     }
   }

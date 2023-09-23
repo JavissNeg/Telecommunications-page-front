@@ -21,32 +21,7 @@ export class TestComponent implements OnDestroy {
     'Puedes realiiar el test las veces que quieras, pero solo se tomara en cuenta la puntuación obtenida de tu primer intento, no la desaproveches'
   ];
 
-  questions: Question[] = [
-    {
-      question_id: 6,
-      question_name: "Que es un componente?",
-      question_answers: [ 
-          'Un componente es aquel que se encarga de gestionar la vista de la aplicación',
-          'Un componente es aquel que se encarga de gestionar la lógica de la aplicación',
-          'Un componente es aquel que se encarga de gestionar la vista y la lógica de la aplicación',
-        'Un componente es aquel que se encarga de gestionar la vista, la lógica y los datos de la aplicación',
-      ],
-      question_correctAnswer: 1,
-      unit_id: 1
-    },
-    {
-      question_id: 6,
-      question_name: "Que es el decorador @Component?",
-      question_answers: [
-          'El decorador @Component es el que se encarga de gestionar la vista de la aplicación',
-          'El decorador @Component es el que se encarga de gestionar la lógica de la aplicación',
-          'El decorador @Component es el que se encarga de gestionar la vista y la lógica de la aplicación',
-          'El decorador @Component es el que se encarga de gestionar la vista, la lógica y los datos de la aplicación', 
-      ],
-      question_correctAnswer: 2,
-      unit_id: 1
-    },
-  ];
+  questions: Question[] = [];
 
   unit_id: number = 0;
   check: boolean = false;
@@ -70,12 +45,18 @@ export class TestComponent implements OnDestroy {
       if ( this.blurActivate && this.showSecond ) {
         this.blurActivate = false;
         this.finishTest();
-        alert('Haz intentado hacer trampa, tus respuestas han sido enviadas')
+        alert('Haz intentado hacer trampa, tus respuestas han sido enviadas');
       }
 
     });
 
     window.addEventListener('beforeunload', () => {
+      if ( this.showSecond ) {
+        this.finishTest();
+      }
+    });
+
+    window.addEventListener('popstate' , () => {
       if ( this.showSecond ) {
         this.finishTest();
       }
@@ -90,7 +71,7 @@ export class TestComponent implements OnDestroy {
     this.totalTime = 0;
     this.blurActivate = true;
     this.login_id = Number(localStorage.getItem('login_id'));
-
+    
     this.activatedRoute.params.subscribe( ({ unit_id }) => {
       
       this.unit_id = unit_id;
